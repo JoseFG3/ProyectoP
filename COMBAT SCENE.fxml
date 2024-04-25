@@ -4,12 +4,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="720.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@BATTLEGROUND.png" />
+            <Image url="@BATTLEGROUND.jpg" />
          </image>
       </ImageView>
       <AnchorPane layoutX="113.0" layoutY="183.0" prefHeight="262.0" prefWidth="267.0">
@@ -22,14 +21,14 @@
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="489.0" prefHeight="230.0" prefWidth="720.0">
+      <AnchorPane layoutY="427.0" prefHeight="293.0" prefWidth="721.0">
          <children>
-            <ImageView fitHeight="230.0" fitWidth="141.0" layoutY="-61.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="579.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="293.0" fitWidth="178.0" layoutY="-61.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="543.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@BORDES%20NEGROS.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="239.0" fitWidth="129.0" layoutX="592.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="592.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="293.0" fitWidth="200.0" layoutX="556.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="556.0" AnchorPane.rightAnchor="0.9199981689453125" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@BORDES%20NEGROS.jpg" />
                </image>
