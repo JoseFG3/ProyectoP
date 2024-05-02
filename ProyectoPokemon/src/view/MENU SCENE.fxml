@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="558.0" fitWidth="727.0" layoutX="-2.0" layoutY="-1.0">
+         <image>
+            <Image url="@../recursos/MENU.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="78.0" layoutY="179.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="123.0" text="Centro Pokemon" />
+      <ImageView fitHeight="62.0" fitWidth="200.0" layoutX="260.0" layoutY="25.0" opacity="0.96">
+         <image>
+            <Image url="@../recursos/Upper-Menu.png" />
+         </image>
+         <effect>
+            <DropShadow height="84.17" radius="39.83" width="77.15">
+               <color>
+                  <Color red="0.879844069480896" green="0.9578947424888611" blue="0.17738790810108185" />
+               </color>
+            </DropShadow>
+         </effect>
+      </ImageView>
+      <Button layoutX="77.0" layoutY="257.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="123.0" text="Captura" />
+      <Button layoutX="516.0" layoutY="336.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="123.0" text="Combate" />
+      <Button layoutX="516.0" layoutY="179.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="123.0" text="Crianza" />
+      <Button layoutX="516.0" layoutY="253.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="123.0" text="Equipo" />
+      <Button layoutX="78.0" layoutY="336.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="123.0" text="Entrenamiento" />
+   </children>
+</AnchorPane>
