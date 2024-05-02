@@ -35,19 +35,28 @@
                   <Image url="@RECTANGULO%20ENFERMERIA.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="372.0" layoutY="165.0">
+            <ImageView fitHeight="200.0" fitWidth="300.0" layoutY="165.0">
                <image>
                   <Image url="@RECTANGULO%20ENFERMERIA.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="200.0" fitWidth="300.0" layoutY="165.0">
+            <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="372.0" layoutY="165.0">
                <image>
                   <Image url="@RECTANGULO%20ENFERMERIA.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <Button layoutX="775.0" layoutY="416.0" mnemonicParsing="false" text="SALIR" />
       <Button layoutX="379.0" layoutY="397.0" mnemonicParsing="false" text="CAJA POKEMON" />
+      <AnchorPane layoutX="723.0" layoutY="363.0" prefHeight="118.0" prefWidth="139.0">
+         <children>
+            <Button mnemonicParsing="false" opacity="0.0" prefHeight="118.0" prefWidth="139.0" text="SALIR" />
+            <ImageView fitHeight="110.0" fitWidth="118.0" layoutX="11.0" layoutY="12.0">
+               <image>
+                  <Image url="@BOTON%20RETURN.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
