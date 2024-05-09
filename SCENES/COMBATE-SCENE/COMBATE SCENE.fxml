@@ -23,7 +23,7 @@
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="34.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="473.0" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane layoutX="468.0" layoutY="26.0" prefHeight="200.0" prefWidth="200.0">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
          </children>
@@ -88,25 +88,25 @@
                   <Image url="@BOTON%20HUIR.png" />
                </image>
             </ImageView>
-            <Button blendMode="SRC_ATOP" contentDisplay="TOP" layoutX="87.0" layoutY="18.0" mnemonicParsing="false" opacity="0.0" prefHeight="120.0" prefWidth="220.0" text="LUCHAR">
+            <Button blendMode="SRC_ATOP" contentDisplay="TOP" layoutX="107.0" layoutY="18.0" mnemonicParsing="false" opacity="0.0" prefHeight="120.0" prefWidth="200.0" text="LUCHAR">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="396.0" layoutY="161.0" mnemonicParsing="false" opacity="0.0" prefHeight="106.0" prefWidth="165.0" text="HUIR">
+            <Button layoutX="396.0" layoutY="161.0" mnemonicParsing="false" opacity="0.0" prefHeight="113.0" prefWidth="165.0" text="HUIR">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <cursor>
-                  <Cursor fx:constant="HAND" />
+                  <Cursor fx:constant="OPEN_HAND" />
                </cursor>
             </Button>
-            <Button layoutX="103.0" layoutY="172.0" mnemonicParsing="false" opacity="0.0" prefHeight="95.0" prefWidth="212.0" text="POKEMON">
+            <Button layoutX="110.0" layoutY="172.0" mnemonicParsing="false" opacity="0.0" prefHeight="95.0" prefWidth="200.0" text="POKEMON">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="402.0" layoutY="26.0" mnemonicParsing="false" opacity="0.0" prefHeight="106.0" prefWidth="206.0" text="BOLSA">
+            <Button layoutX="397.0" layoutY="37.0" mnemonicParsing="false" opacity="0.0" prefHeight="95.0" prefWidth="200.0" text="BOLSA">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
