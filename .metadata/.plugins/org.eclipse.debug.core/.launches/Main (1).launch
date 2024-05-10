@@ -14,5 +14,5 @@
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="application.Main"/>
     <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="ProyectoPokemon"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="ProyectoPokemon"/>
-    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="--module-path &quot;C:\Users\JavierSánchezLópez\Desktop\PROYECTO POKEMON\JAVA FX\openjfx-22.0.1_windows-x64_bin-sdk\javafx-sdk-22.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="--module-path &quot;C:\Users\PabloGarcíaCano\Java\openjfx-22.0.1\openjfx-22.0.1_windows-x64_bin-sdk\javafx-sdk-22.0.1\lib&quot; --add-modules javafx.controls,javafx.fxml"/>
 </launchConfiguration>
