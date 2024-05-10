@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CombateController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,12 +20,12 @@
       </ImageView>
       <AnchorPane layoutX="113.0" layoutY="183.0" prefHeight="262.0" prefWidth="267.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="34.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPokemon" fitHeight="150.0" fitWidth="200.0" layoutX="34.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="473.0" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPokemonRival" fitHeight="150.0" fitWidth="200.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="418.0" layoutY="269.0" prefHeight="90.0" prefWidth="200.0">
@@ -88,12 +88,12 @@
                   <Image url="@../recursos/BOTON-HUIR.png" />
                </image>
             </ImageView>
-            <Button blendMode="SRC_ATOP" contentDisplay="TOP" layoutX="87.0" layoutY="18.0" mnemonicParsing="false" opacity="0.0" prefHeight="120.0" prefWidth="220.0" text="LUCHAR">
+            <Button fx:id="btnCombate" blendMode="SRC_ATOP" contentDisplay="TOP" layoutX="87.0" layoutY="18.0" mnemonicParsing="false" onAction="#irCombate" opacity="0.0" prefHeight="120.0" prefWidth="220.0" text="LUCHAR">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="396.0" layoutY="161.0" mnemonicParsing="false" opacity="0.0" prefHeight="106.0" prefWidth="165.0" text="HUIR">
+            <Button fx:id="btnHuir" layoutX="396.0" layoutY="161.0" mnemonicParsing="false" onAction="#huirMenu" opacity="0.0" prefHeight="106.0" prefWidth="165.0" text="HUIR">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -101,12 +101,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="103.0" layoutY="172.0" mnemonicParsing="false" opacity="0.0" prefHeight="95.0" prefWidth="212.0" text="POKEMON">
+            <Button fx:id="btnPokemon" layoutX="103.0" layoutY="172.0" mnemonicParsing="false" opacity="0.0" prefHeight="95.0" prefWidth="212.0" text="POKEMON">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="402.0" layoutY="26.0" mnemonicParsing="false" opacity="0.0" prefHeight="106.0" prefWidth="206.0" text="BOLSA">
+            <Button fx:id="btnMochila" layoutX="402.0" layoutY="26.0" mnemonicParsing="false" onAction="#irMochila" opacity="0.0" prefHeight="106.0" prefWidth="206.0" text="BOLSA">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
