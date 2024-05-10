@@ -42,5 +42,6 @@
             </Button>
          </children>
       </AnchorPane>
+      <Button fx:id="generarPokemon" layoutX="46.0" layoutY="455.0" mnemonicParsing="false" onAction="#Generar" text="GENERAR POKEMON" />
    </children>
 </AnchorPane>

@@ -60,22 +60,7 @@
          <children>
             <ImageView fitHeight="290.0" fitWidth="720.0" layoutX="261.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@../recursos/FONDO%20BLANCO.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="293.0" fitWidth="178.0" layoutY="-61.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="543.0" AnchorPane.topAnchor="0.0">
-               <image>
-                  <Image url="@../recursos/BORDES-NEGROS.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="293.0" fitWidth="200.0" layoutX="556.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="556.0" AnchorPane.rightAnchor="0.9199981689453125" AnchorPane.topAnchor="0.0">
-               <image>
-                  <Image url="@../recursos/BORDES-NEGROS.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="250.0" layoutX="111.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../recursos/BOTON-LUCHA.png" />
+                  <Image url="@../recursos/HUD%20COMBATE.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="396.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
@@ -83,22 +68,27 @@
                   <Image url="@../recursos/BOTON-BOLSA.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="109.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="113.0" fitWidth="250.0" layoutX="111.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../recursos/BOTON-POKEMON.png" />
+                  <Image url="@../recursos/BOTON-LUCHA.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="113.0" fitWidth="169.0" layoutX="402.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="113.0" fitWidth="169.0" layoutX="399.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/BOTON-HUIR.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnCombate" blendMode="SRC_ATOP" contentDisplay="TOP" layoutX="107.0" layoutY="25.0" mnemonicParsing="false" onAction="#empezarCombate" opacity="0.0" prefHeight="113.0" prefWidth="200.0" text="LUCHAR">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="103.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recursos/BOTON-POKEMON.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnCombate" blendMode="SRC_ATOP" contentDisplay="TOP" layoutX="109.0" layoutY="40.0" mnemonicParsing="false" onAction="#empezarCombate" opacity="0.0" prefHeight="106.0" prefWidth="200.0" text="LUCHAR">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnHuir" layoutX="396.0" layoutY="161.0" mnemonicParsing="false" onAction="#huirMenu" opacity="0.0" prefHeight="106.0" prefWidth="165.0" text="HUIR">
+            <Button fx:id="btnHuir" layoutX="396.0" layoutY="147.0" mnemonicParsing="false" onAction="#huirMenu" opacity="0.0" prefHeight="106.0" prefWidth="165.0" text="HUIR">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -106,7 +96,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnPokemon" layoutX="103.0" layoutY="172.0" mnemonicParsing="false" opacity="0.0" prefHeight="95.0" prefWidth="212.0" text="POKEMON">
+            <Button fx:id="btnPokemon" layoutX="97.0" layoutY="153.0" mnemonicParsing="false" opacity="0.0" prefHeight="95.0" prefWidth="212.0" text="POKEMON">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
