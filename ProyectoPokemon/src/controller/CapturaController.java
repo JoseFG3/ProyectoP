@@ -66,6 +66,7 @@ public class CapturaController implements Initializable {
             pokemonAleatorio = pokedexManager.obtenerPokemonAleatorio(); // Obtenemos un Pokémon aleatorio y lo asignamos a pokemonAleatorio
             if (pokemonAleatorio != null) {
                 System.out.println("Se ha generado un Pokémon aleatorio: " + pokemonAleatorio.getNomPokemon());
+                cambiarImagen(pokemonAleatorio.getNomPokemon());
             } else {
                 System.out.println("No se pudo obtener ningún Pokémon aleatorio.");
             }
@@ -200,12 +201,12 @@ public class CapturaController implements Initializable {
     }
     
     
-    private void cambiarImagen(int id_pokemon) {
+    private void cambiarImagen(String id_pokemon) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
             // Ejecutar una consulta para obtener la imagen de la base de datos
-            String sql = "SELECT imagen FROM pokedex WHERE num_pokedex = ?";
+            String sql = "SELECT imagen FROM pokedex WHERE nom_pokemon = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, id_pokemon); // Aquí necesitas proporcionar el id de la imagen que deseas recuperar
+                stmt.setString(1, id_pokemon); // Aquí necesitas proporcionar el id de la imagen que deseas recuperar
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
                         // Recuperar la imagen como un conjunto de bytes desde la base de datos

@@ -53,16 +53,6 @@
       </Label>
       <AnchorPane layoutY="427.0" prefHeight="290.0" prefWidth="720.0">
          <children>
-            <ImageView fitHeight="293.0" fitWidth="178.0" layoutY="-61.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="543.0" AnchorPane.topAnchor="0.0">
-               <image>
-                  <Image url="@../recursos/BORDES-NEGROS.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="293.0" fitWidth="200.0" layoutX="556.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" rotate="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="556.0" AnchorPane.rightAnchor="0.9199981689453125" AnchorPane.topAnchor="0.0">
-               <image>
-                  <Image url="@../recursos/BORDES-NEGROS.jpg" />
-               </image>
-            </ImageView>
             <ImageView fitHeight="113.0" fitWidth="250.0" layoutX="111.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recursos/BOTON-LUCHA.png" />
