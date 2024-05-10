@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2024 a las 11:09:55
+-- Tiempo de generación: 10-05-2024 a las 12:25:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -51,16 +51,16 @@ CREATE TABLE `entrenador` (
 --
 
 INSERT INTO `entrenador` (`ID_ENTRENADOR`, `NOM_ENTRENADOR`, `PASS`, `POKEDOLLARS`) VALUES
-(1, 'Lebron James', '', 1500),
-(2, 'Barack Obama', '', 2000),
-(3, 'Samuel Umtiti', '', 1750),
-(4, 'Usain Bolt', '', 1500),
-(5, 'Rosa Parks', '', 1800),
-(6, 'Bob Marley', '', 1600),
-(7, 'Martin L.K.', '', 2200),
-(8, 'Pele', '', 1900),
-(9, 'George Washington', '', 1850),
-(10, 'Will Smith', '', 1500),
+(1, 'Lebron James', NULL, 1500),
+(2, 'Barack Obama', NULL, 2000),
+(3, 'Samuel Umtiti', NULL, 1750),
+(4, 'Usain Bolt', NULL, 1500),
+(5, 'Rosa Parks', NULL, 1800),
+(6, 'Bob Marley', NULL, 1600),
+(7, 'Martin L.K.', NULL, 2200),
+(8, 'Pele', NULL, 1900),
+(9, 'George Washington', NULL, 1850),
+(10, 'Will Smith', NULL, 1500),
 (11, 'Pablo', 'contraseña', 0),
 (99, 'jose', 'jose', 10000);
 
