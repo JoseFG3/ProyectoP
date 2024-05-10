@@ -34,8 +34,16 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import util.SessionManager;
 import java.io.ByteArrayInputStream;
+import bbdd.Pokedex;
+import util.PokedexManager;
+
 
 public class CapturaController implements Initializable {
+	
+    private PokedexManager pokedexManager; // Crear una instancia de PokedexManager como variable miembro
+
+    private Pokedex pokemonAleatorio;
+    
 
     @FXML
     private Button btnCaptura;
@@ -45,120 +53,105 @@ public class CapturaController implements Initializable {
     
     @FXML
     private ImageView imageViewCaptura;
+    
+    @FXML
+    private Button generarPokemon;
+    
 
     private List<String> listaPokemon;
+    
+    @FXML
+    void Generar(ActionEvent event) {
+        try {
+            pokemonAleatorio = pokedexManager.obtenerPokemonAleatorio(); // Obtenemos un Pokémon aleatorio y lo asignamos a pokemonAleatorio
+            if (pokemonAleatorio != null) {
+                System.out.println("Se ha generado un Pokémon aleatorio: " + pokemonAleatorio.getNomPokemon());
+                cambiarImagen(pokemonAleatorio.getNomPokemon());
+            } else {
+                System.out.println("No se pudo obtener ningún Pokémon aleatorio.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    
+    
     @FXML
     void Capturar(ActionEvent event) {
-        listaPokemon = new ArrayList<>();
+        if (pokemonAleatorio != null) {
+            capturarPokemon(pokemonAleatorio);
+        } else {
+            System.out.println("Primero genera un Pokémon antes de capturar.");
+        }
+    }
+    
+    private void capturarPokemon(Pokedex pokemon) {
+        // Obtener el ID del entrenador desde la sesión
+        int idEntrenador = SessionManager.getEntrenador().getId_entrenador();
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
-            String sql = "SELECT NOM_POKEMON, NUM_POKEDEX FROM pokedex";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        listaPokemon.add(rs.getString("NOM_POKEMON"));
-                    }
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Error al conectar a la base de datos o al ejecutar la consulta.");
-            alert.showAndWait();
-            return;
-        }
+            Statement instruccion = conn.createStatement();
 
-        if (!listaPokemon.isEmpty()) {
-            Random random = new Random();
-            int indice = random.nextInt(listaPokemon.size());
-            String pokemonCapturado = listaPokemon.get(indice);
-
-            // Obtener el ID del entrenador desde la sesión
-            int idEntrenador = SessionManager.getEntrenador().getId_entrenador();
-
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
-                Statement instruccion = conn.createStatement();
-
-                ResultSet resultado = instruccion.executeQuery("SELECT MAX(ID_POKEMON) FROM pokemon");
-                int ultimoID = 0;
-                if (resultado.next()) {
-                    ultimoID = resultado.getInt(1);
-                }
-
-                // Obtener el NUM_POKEDEX del Pokémon capturado
-                int numPokedex = 0;
-                try (PreparedStatement stmt = conn.prepareStatement("SELECT NUM_POKEDEX FROM pokedex WHERE NOM_POKEMON = ?")) {
-                    stmt.setString(1, pokemonCapturado);
-                    try (ResultSet rs = stmt.executeQuery()) {
-                        if (rs.next()) {
-                            numPokedex = rs.getInt("NUM_POKEDEX");
-                        }
-                    }
-                }
-
-                String motePokemon = pokemonCapturado;
-                int nuevoID = ultimoID + 1;
-                int ataque = (int) (Math.random() * 10) + 1;
-                int ataqueEspecial = (int) (Math.random() * 10) + 1;
-                int defensa = (int) (Math.random() * 10) + 1;
-                int defensaEspecial = (int) (Math.random() * 10) + 1;
-                int velocidad = (int) (Math.random() * 10) + 1;
-                int nivel = 1;
-                int fertilidad = 5;
-                String sexo = Math.random() < 0.5 ? "M" : "F";
-                String estado = null;
-                int experiencia = 0;
-                int vitalidad = (int) (Math.random() * 51) + 50;
-                int idObjeto = 0;
-
-                String insertQuery = "INSERT INTO pokemon (ID_POKEMON, MOTE, CAJA, ATAQUE, AT_ESPECIAL, DEFENSA, DEF_ESPECIAL, VELOCIDAD, NIVEL, FERTILIDAD, SEXO, ESTADO, EXPERIENCIA, VITALIDAD, NUM_POKEDEX, ID_ENTRENADOR, ID_OBJETO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement insertStatement = conn.prepareStatement(insertQuery);
-                insertStatement.setInt(1, nuevoID);
-                insertStatement.setString(2, motePokemon);
-                insertStatement.setInt(3, 1); // Valor fijo de 1 para la columna Caja
-                insertStatement.setInt(4, ataque);
-                insertStatement.setInt(5, ataqueEspecial);
-                insertStatement.setInt(6, defensa);
-                insertStatement.setInt(7, defensaEspecial);
-                insertStatement.setInt(8, velocidad);
-                insertStatement.setInt(9, nivel);
-                insertStatement.setInt(10, fertilidad);
-                insertStatement.setString(11, sexo);
-                insertStatement.setString(12, estado);
-                insertStatement.setInt(13, experiencia);
-                insertStatement.setInt(14, vitalidad);
-                insertStatement.setInt(15, numPokedex); // Aquí se usa el NUM_POKEDEX correspondiente
-                insertStatement.setInt(16, idEntrenador);
-                insertStatement.setInt(17, idObjeto);
-
-                int filasInsertadas = insertStatement.executeUpdate();
-                if (filasInsertadas > 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("¡Pokémon Capturado!");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Has capturado a: " + pokemonCapturado);
-                    alert.showAndWait();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Ha ocurrido un error al insertar el Pokémon.");
-                    alert.showAndWait();
-                }
-
-            } catch (SQLException e) {
-                System.out.println("Error de SQL: " + e.getMessage());
+            ResultSet resultado = instruccion.executeQuery("SELECT MAX(ID_POKEMON) FROM pokemon");
+            int ultimoID = 0;
+            if (resultado.next()) {
+                ultimoID = resultado.getInt(1);
             }
 
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("No se encontraron Pokémon en la base de datos.");
-            alert.showAndWait();
+            // Obtener los datos del Pokemon aleatorio
+            String motePokemon = pokemon.getNomPokemon();
+            int nuevoID = ultimoID + 1;
+            int ataque = (int) (Math.random() * 10) + 1;
+            int ataqueEspecial = (int) (Math.random() * 10) + 1;
+            int defensa = (int) (Math.random() * 10) + 1;
+            int defensaEspecial = (int) (Math.random() * 10) + 1;
+            int velocidad = (int) (Math.random() * 10) + 1;
+            int nivel = 1;
+            int fertilidad = 5;
+            String sexo = Math.random() < 0.5 ? "M" : "F";
+            String estado = null;
+            int experiencia = 0;
+            int vitalidad = (int) (Math.random() * 51) + 50;
+            int idObjeto = 0;
+
+            String insertQuery = "INSERT INTO pokemon (ID_POKEMON, MOTE, CAJA, ATAQUE, AT_ESPECIAL, DEFENSA, DEF_ESPECIAL, VELOCIDAD, NIVEL, FERTILIDAD, SEXO, ESTADO, EXPERIENCIA, VITALIDAD, NUM_POKEDEX, ID_ENTRENADOR, ID_OBJETO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement insertStatement = conn.prepareStatement(insertQuery);
+            insertStatement.setInt(1, nuevoID);
+            insertStatement.setString(2, motePokemon);
+            insertStatement.setInt(3, 1); // Valor fijo de 1 para la columna Caja
+            insertStatement.setInt(4, ataque);
+            insertStatement.setInt(5, ataqueEspecial);
+            insertStatement.setInt(6, defensa);
+            insertStatement.setInt(7, defensaEspecial);
+            insertStatement.setInt(8, velocidad);
+            insertStatement.setInt(9, nivel);
+            insertStatement.setInt(10, fertilidad);
+            insertStatement.setString(11, sexo);
+            insertStatement.setString(12, estado);
+            insertStatement.setInt(13, experiencia);
+            insertStatement.setInt(14, vitalidad);
+            insertStatement.setInt(15, pokemon.getNumPokedex()); // Aquí se usa el NUM_POKEDEX correspondiente
+            insertStatement.setInt(16, idEntrenador);
+            insertStatement.setInt(17, idObjeto);
+
+            int filasInsertadas = insertStatement.executeUpdate();
+            if (filasInsertadas > 0) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("¡Pokémon Capturado!");
+                alert.setHeaderText(null);
+                alert.setContentText("Has capturado a: " + motePokemon);
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Ha ocurrido un error al insertar el Pokémon.");
+                alert.showAndWait();
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error de SQL: " + e.getMessage());
         }
     }
 
@@ -170,7 +163,13 @@ public class CapturaController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         listaPokemon = new ArrayList<>();
-        cambiarImagen(1);
+        
+        // Obtener las credenciales del usuario desde SessionManager
+        String nombreUsuario = SessionManager.getEntrenador().getNom_entrenador();
+        String contrasena = SessionManager.getEntrenador().getPass();
+        
+        // Crear una instancia de PokedexManager con las credenciales del usuario
+        pokedexManager = new PokedexManager("jdbc:mysql://localhost:3306/getbacktowork", nombreUsuario, contrasena);
     }
 
     private void loadStage(String url, Event event) {
@@ -201,23 +200,30 @@ public class CapturaController implements Initializable {
         }
     }
     
-    private void cambiarImagen(int id_pokemon) {
+    
+    private void cambiarImagen(String id_pokemon) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
-            String sql = "SELECT imagen FROM pokedex WHERE num_pokedex = ?";
+            // Ejecutar una consulta para obtener la imagen de la base de datos
+            String sql = "SELECT imagen FROM pokedex WHERE nom_pokemon = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, id_pokemon);
+                stmt.setString(1, id_pokemon); // Aquí necesitas proporcionar el id de la imagen que deseas recuperar
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
+                        // Recuperar la imagen como un conjunto de bytes desde la base de datos
                         byte[] bytesImagen = rs.getBytes("imagen");
- 
+
+                        // Convertir los bytes de la imagen en un objeto Image de JavaFX
                         Image imagen = new Image(new ByteArrayInputStream(bytesImagen));
- 
+
+                        // Establecer la imagen en el ImageView
                         imageViewCaptura.setImage(imagen);
                     }
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+            // Manejo de errores
         }
     }
+    
 }
