@@ -44,7 +44,7 @@ public class CapturaController implements Initializable {
     private Button btnReturn;
     
     @FXML
-    private ImageView imageViewCaptura;
+    private Image imageViewCaptura;
 
     private List<String> listaPokemon;
 
@@ -170,7 +170,6 @@ public class CapturaController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         listaPokemon = new ArrayList<>();
-        cambiarImagen(1);
     }
 
     private void loadStage(String url, Event event) {
