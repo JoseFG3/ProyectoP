@@ -27,14 +27,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import util.SessionManager;
-import java.io.ByteArrayInputStream;
-
 
 public class CapturaController implements Initializable {
 
@@ -43,15 +39,9 @@ public class CapturaController implements Initializable {
 
     @FXML
     private Button btnReturn;
-    
-    @FXML
-    private ImageView imageViewCaptura;
-    
 
     private List<String> listaPokemon;
 
-    
-    
     @FXML
     void Capturar(ActionEvent event) {
         listaPokemon = new ArrayList<>();
@@ -174,7 +164,6 @@ public class CapturaController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         listaPokemon = new ArrayList<>();
-        cambiarImagen(1);
     }
 
     private void loadStage(String url, Event event) {
@@ -204,31 +193,4 @@ public class CapturaController implements Initializable {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    private void cambiarImagen(int id_pokemon) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
-            // Ejecutar una consulta para obtener la imagen de la base de datos
-            String sql = "SELECT imagen FROM pokedex WHERE num_pokedex = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, id_pokemon); // Aquí necesitas proporcionar el id de la imagen que deseas recuperar
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        // Recuperar la imagen como un conjunto de bytes desde la base de datos
-                        byte[] bytesImagen = rs.getBytes("imagen");
-
-                        // Convertir los bytes de la imagen en un objeto Image de JavaFX
-                        Image imagen = new Image(new ByteArrayInputStream(bytesImagen));
-
-                        // Establecer la imagen en el ImageView
-                        imageViewCaptura.setImage(imagen);
-                    }
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            // Manejo de errores
-        }
-    }
-    
 }

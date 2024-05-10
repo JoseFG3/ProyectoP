@@ -88,7 +88,7 @@
                   <Image url="@../recursos/BOTON-HUIR.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnCombate" blendMode="SRC_ATOP" contentDisplay="TOP" layoutX="87.0" layoutY="18.0" mnemonicParsing="false" onAction="#irCombate" opacity="0.0" prefHeight="120.0" prefWidth="220.0" text="LUCHAR">
+            <Button fx:id="btnCombate" blendMode="SRC_ATOP" contentDisplay="TOP" layoutX="87.0" layoutY="18.0" mnemonicParsing="false" onAction="#empezarCombate" opacity="0.0" prefHeight="120.0" prefWidth="220.0" text="LUCHAR">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
