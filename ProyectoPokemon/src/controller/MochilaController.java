@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,48 +12,23 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
-public class CombateController {
+public class MochilaController implements Initializable{
 
     @FXML
-    private Button btnCombate;
+    private Button btnReturn;
 
     @FXML
-    private Button btnHuir;
-
-    @FXML
-    private Button btnMochila;
-
-    @FXML
-    private Button btnPokemon;
-
-    @FXML
-    private ImageView imgPokemon;
-
-    @FXML
-    private ImageView imgPokemonRival;
-
-    @FXML
-    void empezarCombate(ActionEvent event) {
-
-    }
-
-    @FXML
-    void huirMenu(ActionEvent event) {
-    	loadStage("../view/MENU-SCENE.fxml", event);
-    }
-
-    @FXML
-    void irMochila(ActionEvent event) {
-    	loadStage("../view/MOCHILA-SCENE.fxml", event);
+    void irCombate(ActionEvent event) {
+    	 loadStage("../view/COMBATE-SCENE.fxml", event);
     }
     private void loadStage(String url, Event event) {
         try {
@@ -80,4 +57,9 @@ public class CombateController {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		
+	}
 }
