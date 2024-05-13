@@ -1,6 +1,15 @@
 package controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,16 +19,21 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import util.PokedexManager;
+import util.SessionManager;
 
-public class CombateController {
+public class CombateController implements Initializable {
 
     @FXML
     private Button btnCombate;
@@ -38,6 +52,18 @@ public class CombateController {
 
     @FXML
     private ImageView imgPokemonRival;
+    
+    @FXML
+    private Label nombreUsuario;
+    
+    @FXML
+    private Label nombrePokemon;
+    
+    @FXML
+    private Label nombreRival;
+    
+    @FXML
+    private Label nombrePokemonRival;
 
     @FXML
     void empezarCombate(ActionEvent event) {
@@ -53,6 +79,19 @@ public class CombateController {
     void irMochila(ActionEvent event) {
     	loadStage("../view/MOCHILA-SCENE.fxml", event);
     }
+    
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+    	
+    	cambiarImagen(imgPokemon, "Mew");
+    	cambiarImagen(imgPokemonRival, "Charizard");
+    	
+    	nombreUsuario.setText(SessionManager.getEntrenador().getNom_entrenador());
+    	
+    	
+        
+    }
+    
     private void loadStage(String url, Event event) {
         try {
             Object eventSource = event.getSource();
@@ -78,6 +117,32 @@ public class CombateController {
 
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //Metodo para cambiar imagen
+    private void cambiarImagen(ImageView imageView, String id_pokemon) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
+            // Ejecutar una consulta para obtener la imagen de la base de datos
+            String sql = "SELECT imagen FROM pokedex WHERE nom_pokemon = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, id_pokemon); // Aquí necesitas proporcionar el id de la imagen que deseas recuperar
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        // Recuperar la imagen como un conjunto de bytes desde la base de datos
+                        byte[] bytesImagen = rs.getBytes("imagen");
+
+                        // Convertir los bytes de la imagen en un objeto Image de JavaFX
+                        Image imagen = new Image(new ByteArrayInputStream(bytesImagen));
+
+                        // Establecer la imagen en el ImageView
+                        imageView.setImage(imagen);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            // Manejo de errores
         }
     }
 }
