@@ -98,7 +98,7 @@ public class EquipoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
     	String id_usuario = SessionManager.getEntrenador().getNom_entrenador();
-    	List<String> pokemon = obtenerPokemon(id_usuario);
+    	List<String> pokemon = obtenerEquipoPokemon(id_usuario);
     	
         if (pokemon.get(0) != null) {
             cambiarImagen(imgPokemon1, pokemon.get(0));
@@ -207,7 +207,7 @@ public class EquipoController implements Initializable {
         }
     }
     
-    private List<String> obtenerPokemon(String idUsuario) {
+    private List<String> obtenerEquipoPokemon(String idUsuario) {
         List<String> pokemon = new ArrayList<>();
         
         String sql = "SELECT * FROM pokemon " +
