@@ -91,7 +91,7 @@ public class CombateController implements Initializable {
     	
     	
     	try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
-            int idRival = seleccionarEntrenadorRivalAleatorio(conn);
+            int idRival = seleccionarEntrenadorRival(conn);
     		
     		String entrenadorRival = obtenerNombreEntrenador(conn, idRival);
             nombreRival.setText(entrenadorRival);
@@ -161,7 +161,7 @@ public class CombateController implements Initializable {
     }
     
     //Método para seleccionar aleatoriamente un entrenador rival
-    private int seleccionarEntrenadorRivalAleatorio(Connection conn) throws SQLException {
+    private int seleccionarEntrenadorRival(Connection conn) throws SQLException {
         List<Integer> entrenadoresRivales = new ArrayList<>();
         String sql = "SELECT id_entrenador FROM entrenador ORDER BY id_entrenador";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
