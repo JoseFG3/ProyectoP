@@ -22,7 +22,53 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 public class MochilaController implements Initializable{
+    @FXML
+    private Button btnAnillo;
 
+    @FXML
+    private Button btnBaston;
+
+    @FXML
+    private Button btnChaleco;
+
+    @FXML
+    private Button btnPesas;
+
+    @FXML
+    private Button btnPilas;
+
+    @FXML
+    private Button btnPluma;
+
+    @FXML
+    void ComprarAnillo(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ComprarBaston(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ComprarChaleco(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ComprarPesas(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ComprarPilas(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ComprarPluma(ActionEvent event) {
+
+    }
     @FXML
     private Button btnReturn;
 

@@ -6,7 +6,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MochilaController">
    <children>
       <ImageView fitHeight="412.0" fitWidth="600.0" layoutY="-8.0">
@@ -23,7 +22,7 @@
                         <Image url="@../recursos/ANILLO.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="4.0" layoutY="1.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="96.0" text="Anillo" />
+                  <Button fx:id="btnAnillo" layoutX="4.0" layoutY="1.0" mnemonicParsing="false" onAction="#ComprarAnillo" opacity="0.0" prefHeight="92.0" prefWidth="96.0" text="Anillo" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="168.0" layoutY="22.0" prefHeight="98.0" prefWidth="106.0">
@@ -33,7 +32,7 @@
                         <Image url="@../recursos/BASTON.png" />
                      </image>
                   </ImageView>
-                  <Button layoutY="3.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="106.0" text="Baston" />
+                  <Button fx:id="btnBaston" layoutY="3.0" mnemonicParsing="false" onAction="#ComprarBaston" opacity="0.0" prefHeight="92.0" prefWidth="106.0" text="Baston" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="301.0" layoutY="22.0" prefHeight="98.0" prefWidth="106.0">
@@ -43,7 +42,7 @@
                         <Image url="@../recursos/CHALECO.png" />
                      </image>
                   </ImageView>
-                  <Button layoutY="2.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="106.0" text="Chaleco" />
+                  <Button fx:id="btnChaleco" layoutY="2.0" mnemonicParsing="false" onAction="#ComprarChaleco" opacity="0.0" prefHeight="92.0" prefWidth="106.0" text="Chaleco" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="30.0" layoutY="157.0" prefHeight="98.0" prefWidth="106.0">
@@ -53,7 +52,7 @@
                         <Image url="@../recursos/PESA.png" />
                      </image>
                   </ImageView>
-                  <Button layoutY="2.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="106.0" text="Pesa" />
+                  <Button fx:id="btnPesas" layoutY="2.0" mnemonicParsing="false" onAction="#ComprarPesas" opacity="0.0" prefHeight="92.0" prefWidth="106.0" text="Pesa" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="168.0" layoutY="159.0" prefHeight="98.0" prefWidth="106.0">
@@ -63,7 +62,7 @@
                         <Image url="@../recursos/PILAS.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="5.0" layoutY="1.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="96.0" text="Pilas" />
+                  <Button fx:id="btnPilas" layoutX="5.0" layoutY="1.0" mnemonicParsing="false" onAction="#ComprarPilas" opacity="0.0" prefHeight="92.0" prefWidth="96.0" text="Pilas" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="301.0" layoutY="159.0" prefHeight="98.0" prefWidth="106.0">
@@ -73,15 +72,15 @@
                         <Image url="@../recursos/PLUMA.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="1.0" layoutY="2.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="106.0" text="Pluma" />
+                  <Button fx:id="btnPluma" layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#ComprarPluma" opacity="0.0" prefHeight="92.0" prefWidth="106.0" text="Pluma" />
                </children>
             </AnchorPane>
-            <Label layoutX="59.0" layoutY="121.0" text="Cantidad" />
-            <Label layoutX="197.0" layoutY="121.0" text="Cantidad" />
-            <Label layoutX="59.0" layoutY="257.0" text="Cantidad" />
-            <Label layoutX="331.0" layoutY="121.0" text="Cantidad" />
-            <Label layoutX="197.0" layoutY="257.0" text="Cantidad" />
-            <Label layoutX="330.0" layoutY="257.0" text="Cantidad" />
+            <Label layoutX="59.0" layoutY="121.0" text="Cantidad1" />
+            <Label layoutX="197.0" layoutY="121.0" text="Cantidad2" />
+            <Label layoutX="59.0" layoutY="257.0" text="Cantidad4" />
+            <Label layoutX="331.0" layoutY="121.0" text="Cantidad3" />
+            <Label layoutX="197.0" layoutY="257.0" text="Cantidad5" />
+            <Label layoutX="330.0" layoutY="257.0" text="Cantidad6" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="187.0" prefHeight="119.0" prefWidth="126.0">
