@@ -193,7 +193,7 @@
                   <Image url="@../recursos/CUADRO-PRECIO.png" />
                </image>
             </ImageView>
-            <Label layoutX="40.0" layoutY="13.0" prefHeight="28.0" prefWidth="139.0" text="TusMonedas">
+            <Label fx:id="lblDinero" layoutX="40.0" layoutY="13.0" prefHeight="28.0" prefWidth="139.0" text="TusMonedas">
                <font>
                   <Font name="Forte" size="22.0" />
                </font>

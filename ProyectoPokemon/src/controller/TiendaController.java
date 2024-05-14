@@ -2,6 +2,11 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,9 +22,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import util.SessionManager;
 
 public class TiendaController implements Initializable{
 
@@ -81,6 +88,8 @@ public class TiendaController implements Initializable{
     void comprarPokedex(ActionEvent event) {
 
     }
+    @FXML
+    private Label lblDinero;
 
     @FXML
     void irMenu(ActionEvent event) {
@@ -118,6 +127,46 @@ public class TiendaController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		
+		cargarDineroUsuarioDesdeBD();
+		
 	}
+	private void cargarDineroUsuarioDesdeBD() {
+
+        int idEntrenador = SessionManager.getEntrenador().getId_entrenador();
+        Connection conexion = null;
+        PreparedStatement consulta = null;
+        ResultSet resultado = null;
+        try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "");
+            String sql = "SELECT POKEDOLLARS FROM entrenador WHERE id_entrenador =?";
+            consulta = conexion.prepareStatement(sql);
+            consulta.setInt(1,idEntrenador);
+            resultado = consulta.executeQuery();
+            // Verificar si se encontró el usuario y obtener el dinero
+            if (resultado.next()) {
+                int dineroUsuario = resultado.getInt("POKEDOLLARS");
+                // Actualizar el label con el dinero del usuario
+                lblDinero.setText(String.valueOf(dineroUsuario));
+            } else {
+                System.out.println("Usuario no encontrado");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (consulta != null) {
+                    consulta.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
