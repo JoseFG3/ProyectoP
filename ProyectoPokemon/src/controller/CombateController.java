@@ -87,16 +87,19 @@ public class CombateController implements Initializable {
     	
     	nombreUsuario.setText(SessionManager.getEntrenador().getNom_entrenador());
     	
-    	cambiarImagen(imgPokemon, "Mew");
-    	cambiarImagen(imgPokemonRival, "Charizard");
+    	cambiarImagen(imgPokemon, "Fearow");
+    	
     	
     	try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
-            String entrenadorRival = seleccionarEntrenadorRivalAleatorio(conn);
-            if (entrenadorRival != null) {
-                nombreRival.setText(entrenadorRival);
-            } else {
-                nombreRival.setText("Entrenador Rival");
-            }
+            int idRival = seleccionarEntrenadorRivalAleatorio(conn);
+    		
+    		String entrenadorRival = obtenerNombreEntrenador(conn, idRival);
+            nombreRival.setText(entrenadorRival);
+            
+            String pokemonRival = seleccionarPokemonRivalAleatorio(conn, idRival);
+            nombrePokemonRival.setText(pokemonRival);
+            cambiarImagen(imgPokemonRival, pokemonRival);
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
             nombreRival.setText("Entrenador Rival");
@@ -157,29 +160,66 @@ public class CombateController implements Initializable {
         }
     }
     
- // Método para seleccionar aleatoriamente un entrenador rival
-    private String seleccionarEntrenadorRivalAleatorio(Connection conn) throws SQLException {
-        List<String> entrenadoresRivales = new ArrayList<>();
-        String sql = "SELECT nom_entrenador FROM entrenador";
+    //Método para seleccionar aleatoriamente un entrenador rival
+    private int seleccionarEntrenadorRivalAleatorio(Connection conn) throws SQLException {
+        List<Integer> entrenadoresRivales = new ArrayList<>();
+        String sql = "SELECT id_entrenador FROM entrenador ORDER BY id_entrenador";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    entrenadoresRivales.add(rs.getString("nom_entrenador"));
+                    entrenadoresRivales.add(rs.getInt("id_entrenador"));
                 }
             }
         }
 
-        // Si no hay entrenadores rivales en la base de datos, retornar null
+        // Si no hay entrenadores rivales en la base de datos, retornar 0 (indicando un error)
         if (entrenadoresRivales.isEmpty()) {
+            return 0;
+        }
+
+        // Seleccionar aleatoriamente un número entre 0 y 9
+        Random random = new Random();
+        int indice = random.nextInt(10) + 1; // Genera un número entre 0 y 9
+        return entrenadoresRivales.get(indice); // Ajusta el índice para que comience desde 0
+    }
+
+    // Método para obtener el nombre del entrenador por su ID
+    private String obtenerNombreEntrenador(Connection conn, int idRival) throws SQLException {
+        String sql = "SELECT nom_entrenador FROM entrenador WHERE id_entrenador = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idRival);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("nom_entrenador");
+                }
+            }
+        }
+        return null; // Si no se encuentra el entrenador, retornar null
+    }
+
+    // Método para seleccionar un Pokémon al azar del rival por ID de entrenador
+    private String seleccionarPokemonRivalAleatorio(Connection conn, int idRival) throws SQLException {
+        List<String> pokemonesRival = new ArrayList<>();
+        String sql = "SELECT mote FROM pokemon WHERE id_entrenador = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idRival);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    pokemonesRival.add(rs.getString("mote"));
+                }
+            }
+        }
+
+        // Si no hay Pokémon para el rival en la base de datos, retornar null
+        if (pokemonesRival.isEmpty()) {
             return null;
         }
 
-        // Seleccionar aleatoriamente un entrenador rival de la lista
+        // Seleccionar aleatoriamente un Pokémon del rival
         Random random = new Random();
-        int indice = random.nextInt(10) + 1;
-        return entrenadoresRivales.get(indice);
+        int indice = random.nextInt(pokemonesRival.size()); // Genera un número entre 0 y el tamaño de la lista - 1
+        return pokemonesRival.get(indice);
     }
-
     
     
 }
