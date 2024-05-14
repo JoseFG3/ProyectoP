@@ -8,6 +8,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import util.SessionManager;
 import javafx.application.Platform;
 
 public class EquipoController implements Initializable {
@@ -93,13 +96,51 @@ public class EquipoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cambiarImagen(imgPokemon1, "Charizard");
-        cambiarImagen(imgPokemon2, "Charizard");
-        cambiarImagen(imgPokemon3, "Charizard");
-        cambiarImagen(imgPokemon4, "Charizard");
-        cambiarImagen(imgPokemon5, "Charizard");
-        cambiarImagen(imgPokemon6, "Charizard");
         
+    	String id_usuario = SessionManager.getEntrenador().getNom_entrenador();
+    	List<String> pokemon = obtenerPokemon(id_usuario);
+    	
+        if (pokemon.get(0) != null) {
+            cambiarImagen(imgPokemon1, pokemon.get(0));
+            labelPokemon1.setText(pokemon.get(0));
+        } else {
+        	labelPokemon1.setText("");
+        }
+        
+        if (pokemon.get(1) != null) {
+            cambiarImagen(imgPokemon2, pokemon.get(1));
+            labelPokemon2.setText(pokemon.get(1));
+        } else {
+        	labelPokemon2.setText("");
+        }
+        
+        if (pokemon.get(2) != null) {
+            cambiarImagen(imgPokemon3, pokemon.get(2));
+            labelPokemon3.setText(pokemon.get(2));
+        } else {
+        	labelPokemon3.setText("");
+        }
+        
+        if (pokemon.get(3) != null) {
+            cambiarImagen(imgPokemon4, pokemon.get(3));
+            labelPokemon4.setText(pokemon.get(3));
+        } else {
+        	labelPokemon4.setText("");
+        }
+        
+        if (pokemon.get(4) != null) {
+            cambiarImagen(imgPokemon5, pokemon.get(4));
+            labelPokemon5.setText(pokemon.get(4));
+        } else {
+        	labelPokemon5.setText("");
+        }
+        
+        if (pokemon.get(5) != null) {
+            cambiarImagen(imgPokemon6, pokemon.get(5));
+            labelPokemon6.setText(pokemon.get(5));
+        } else {
+        	labelPokemon6.setText("");
+        }
     }
 
     @FXML
@@ -164,6 +205,35 @@ public class EquipoController implements Initializable {
             ex.printStackTrace();
             // Manejo de errores
         }
+    }
+    
+    private List<String> obtenerPokemon(String idUsuario) {
+        List<String> pokemon = new ArrayList<>();
+        
+        String sql = "SELECT * FROM pokemon " +
+                     "WHERE id_entrenador = ? " +
+                     "ORDER BY id_pokemon " +
+                     "LIMIT 6";
+
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, idUsuario);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    pokemon.add(rs.getString("mote"));
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        while (pokemon.size() < 6) {
+        	pokemon.add(null);
+        }
+        return pokemon;
     }
 }
 
