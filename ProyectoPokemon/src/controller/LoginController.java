@@ -114,52 +114,65 @@ public class LoginController implements Initializable {
     
     @FXML
     private void eventRegis(ActionEvent event) {
-    	
-    	 Object evt = event.getSource();
-    	 if(!txtUser.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
-    	 try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
-             Statement instruccion = conn.createStatement();
+        Object evt = event.getSource();
+        if (!txtUser.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
+                // Verificar si el nombre de usuario ya existe
+                String checkUserQuery = "SELECT * FROM entrenador WHERE NOM_ENTRENADOR = ?";
+                PreparedStatement checkUserStatement = conn.prepareStatement(checkUserQuery);
+                checkUserStatement.setString(1, txtUser.getText());
+                ResultSet userResult = checkUserStatement.executeQuery();
 
-             ResultSet resultado = instruccion.executeQuery("SELECT MAX(ID_ENTRENADOR) FROM entrenador");
-             int ultimoID = 0;
-             if (resultado.next()) {
-                 ultimoID = resultado.getInt(1);
-             }
+                if (userResult.next()) {
+                    // El usuario ya existe, mostrar un mensaje de error
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("El nombre de usuario ya está en uso. Por favor, elige otro.");
+                    alert.showAndWait();
+                } else {
+                    // El usuario no existe, proceder con la inserción
+                    String insertQuery = "INSERT INTO entrenador (ID_ENTRENADOR, NOM_ENTRENADOR, PASS, POKEDOLLARS) VALUES (?, ?, ?, ?)";
+                    PreparedStatement insertStatement = conn.prepareStatement(insertQuery);
+                   
+                    // Obtener el ID del último entrenador
+                    ResultSet ultimoIDResult = conn.createStatement().executeQuery("SELECT MAX(ID_ENTRENADOR) FROM entrenador");
+                    int ultimoID = 0;
+                    if (ultimoIDResult.next()) {
+                        ultimoID = ultimoIDResult.getInt(1);
+                    }
+                   
+                    // Configurar los valores para la inserción
+                    int idEntrenador = ultimoID + 1;
+                    String nomEntrenador = txtUser.getText();
+                    String Pass = txtPassword.getText();
+                    int pokeDolares = 2000;
 
-             // Obtener los datos del Pokemon aleatorio
-             int idEntrenador = ultimoID + 1;
-             String nomEntrenador = txtUser.getText();
-             String Pass = txtPassword.getText();
-             int pokeDolares = 2000;
-             
+                    insertStatement.setInt(1, idEntrenador);
+                    insertStatement.setString(2, nomEntrenador);
+                    insertStatement.setString(3, Pass);
+                    insertStatement.setInt(4, pokeDolares);
 
-             String insertQuery = "INSERT INTO entrenador (ID_ENTRENADOR, NOM_ENTRENADOR, PASS, POKEDOLLARS) VALUES (?, ?, ?, ?)";
-             PreparedStatement insertStatement = conn.prepareStatement(insertQuery);
-             insertStatement.setInt(1, idEntrenador);
-             insertStatement.setString(2, nomEntrenador);
-             insertStatement.setString(3, Pass);
-             insertStatement.setInt(4, pokeDolares);
-            
-
-             int filasInsertadas = insertStatement.executeUpdate();
-             if (filasInsertadas > 0) {
-                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                 alert.setTitle("¡Usuario añadido con existo!");
-                 alert.setHeaderText(null);
-                 alert.setContentText("Se ha añadido el usuario: "+nomEntrenador+".");
-                 alert.showAndWait();
-             } 
-
-         } catch (SQLException e) {
-             System.out.println("Error de SQL: " + e.getMessage());
-         }
-    	 } else {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
-             alert.setTitle("Error");
-             alert.setHeaderText(null);
-             alert.setContentText("Ha ocurrido un error al insertar el usuario, por favor, asegúrate de rellenar todos los campos");
-             alert.showAndWait();
-         }
+                    // Ejecutar la inserción
+                    int filasInsertadas = insertStatement.executeUpdate();
+                    if (filasInsertadas > 0) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("¡Usuario añadido con éxito!");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Se ha añadido el usuario: " + nomEntrenador + ".");
+                        alert.showAndWait();
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println("Error de SQL: " + e.getMessage());
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Ha ocurrido un error al insertar el usuario, por favor, asegúrate de rellenar todos los campos");
+            alert.showAndWait();
+        }
     }
     
     @FXML
