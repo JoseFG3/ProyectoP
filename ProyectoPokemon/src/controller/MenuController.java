@@ -43,6 +43,9 @@ public class MenuController  implements Initializable{
     
     @FXML
     private Button btnTienda;
+    
+    @FXML
+    private Button btnReturn;
 
     @FXML
     void irCaptura(ActionEvent event) {
@@ -91,6 +94,11 @@ public class MenuController  implements Initializable{
     	
     	loadStage("../view/TIENDA-SCENE.fxml", event);
 
+    }
+    
+    @FXML
+    void salirMenu(ActionEvent event) {
+    	Platform.exit();
     }
 
 	@Override
