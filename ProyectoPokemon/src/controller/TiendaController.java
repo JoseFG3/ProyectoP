@@ -58,6 +58,7 @@ public class TiendaController implements Initializable{
     private int dineroUsuario;
     
     int idEntrenador = SessionManager.getEntrenador().getId_entrenador();
+    
     @FXML
     void comprarAnillo(ActionEvent event) {
     	int precioAnillo = 2000;
@@ -371,14 +372,6 @@ public class TiendaController implements Initializable{
         }
     }
 
-
-    private void mostrarMensaje(String titulo, String mensaje) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-    }
     @FXML
     void comprarPesa(ActionEvent event) {
     	int precioPesa = 500;
@@ -877,6 +870,14 @@ public class TiendaController implements Initializable{
                 e.printStackTrace();
             }
         }
+    }
+	
+    private void mostrarMensaje(String titulo, String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 
 }

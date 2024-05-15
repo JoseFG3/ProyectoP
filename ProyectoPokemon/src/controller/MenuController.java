@@ -2,6 +2,13 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +23,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import util.SessionManager;
 
 public class MenuController  implements Initializable{
 
@@ -63,8 +73,15 @@ public class MenuController  implements Initializable{
 
     @FXML
     void irCombate(ActionEvent event) {
+    	String id_usuario = SessionManager.getEntrenador().getNom_entrenador();
+    	List<String> pokemon = obtenerEquipoPokemon(id_usuario);
     	
-    	loadStage("../view/COMBATE-SCENE.fxml", event);
+    	if (pokemon.get(0) != null) {
+        	loadStage("../view/COMBATE-SCENE.fxml", event);
+        } else {
+        	mostrarMensaje("Error", "No tienes nigun pokemon en tu equipo, asegurate de"
+        			+ " capturar alguno antes de ir a un combate");
+        }
 
     }
 
@@ -106,6 +123,7 @@ public class MenuController  implements Initializable{
 		// TODO Auto-generated method stub
 		
 	}
+	
 	private void loadStage(String url, Event event) {
 
 		try {
@@ -136,5 +154,42 @@ public class MenuController  implements Initializable{
 		}
 
 	}
+	
+	 private List<String> obtenerEquipoPokemon(String idUsuario) {
+	        List<String> pokemon = new ArrayList<>();
+	        
+	        String sql = "SELECT * FROM pokemon " +
+	                     "WHERE id_entrenador = ? " +
+	                     "ORDER BY id_pokemon " +
+	                     "LIMIT 6";
+
+
+	        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "");
+	             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	            stmt.setString(1, idUsuario);
+
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                while (rs.next()) {
+	                    pokemon.add(rs.getString("mote"));
+	                }
+	            }
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+	        
+	        while (pokemon.size() < 6) {
+	        	pokemon.add(null);
+	        }
+	        return pokemon;
+	    }
+		
+	    private void mostrarMensaje(String titulo, String mensaje) {
+	        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+	        alerta.setTitle(titulo);
+	        alerta.setHeaderText(null);
+	        alerta.setContentText(mensaje);
+	        alerta.showAndWait();
+	    }
 
 }

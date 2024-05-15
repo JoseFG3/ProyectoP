@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -94,8 +95,6 @@ public class CombateController implements Initializable {
         if (pokemon.get(0) != null) {
             cambiarImagen(imgPokemon, pokemon.get(0));
             nombrePokemon.setText(pokemon.get(0));
-        } else {
-        
         }
 
         if (CombateSessionManager.getIdRival() == 0) {
@@ -264,6 +263,14 @@ public class CombateController implements Initializable {
         	pokemon.add(null);
         }
         return pokemon;
+    }
+	
+    private void mostrarMensaje(String titulo, String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
     
 }
