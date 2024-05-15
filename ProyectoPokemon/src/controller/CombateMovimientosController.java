@@ -36,19 +36,19 @@ import util.CombateSessionManager;
 import util.PokedexManager;
 import util.SessionManager;
 
-public class CombateController implements Initializable {
+public class CombateMovimientosController implements Initializable {
 
     @FXML
-    private Button btnCombate;
+    private Button ataque1;
 
     @FXML
-    private Button btnHuir;
+    private Button ataque2;
 
     @FXML
-    private Button btnMochila;
+    private Button ataque3;
 
     @FXML
-    private Button btnPokemon;
+    private Button ataque4;
 
     @FXML
     private ImageView imgPokemon;
@@ -67,21 +67,25 @@ public class CombateController implements Initializable {
     
     @FXML
     private Label nombrePokemonRival;
-
+    
     @FXML
-    void empezarCombate(ActionEvent event) {
-    	loadStage("../view/COMBATE-MOVIMIENTOS.fxml", event);
+    void usarAtaque1(ActionEvent event) {
+    	loadStage("../view/COMBATE-SCENE.fxml", event);
     }
-
+    
     @FXML
-    void huirMenu(ActionEvent event) {
-    	CombateSessionManager.clear();
-    	loadStage("../view/MENU-SCENE.fxml", event);
+    void usarAtaque2(ActionEvent event) {
+    	loadStage("../view/COMBATE-SCENE.fxml", event);
     }
-
+    
     @FXML
-    void irMochila(ActionEvent event) {
-    	loadStage("../view/MOCHILA-SCENE.fxml", event);
+    void usarAtaque3(ActionEvent event) {
+    	loadStage("../view/COMBATE-SCENE.fxml", event);
+    }
+    
+    @FXML
+    void usarAtaque4(ActionEvent event) {
+    	loadStage("../view/COMBATE-SCENE.fxml", event);
     }
     
     @Override
@@ -103,8 +107,6 @@ public class CombateController implements Initializable {
                 
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                nombreRival.setText("Entrenador Rival");
-
             }
         }
 

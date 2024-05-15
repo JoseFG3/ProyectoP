@@ -23,7 +23,7 @@
             <ImageView fx:id="imgPokemon" fitHeight="150.0" fitWidth="200.0" layoutX="34.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="465.0" layoutY="57.0" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane layoutX="444.0" layoutY="63.0" prefHeight="200.0" prefWidth="200.0">
          <children>
             <ImageView fx:id="imgPokemonRival" fitHeight="150.0" fitWidth="200.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
          </children>
