@@ -38,6 +38,7 @@ import util.SessionManager;
 import java.io.ByteArrayInputStream;
 import bbdd.Pokedex;
 import util.PokedexManager;
+import bbdd.Movimientos;
 
 
 public class CapturaController implements Initializable {
@@ -137,6 +138,9 @@ public class CapturaController implements Initializable {
  
             int filasInsertadas = insertStatement.executeUpdate();
             if (filasInsertadas > 0) {
+            	List<Movimientos> movimientos = obtenerMovimientosAlAzar(conn);
+                asignarMovimientosAPokemon(nuevoID, movimientos, conn);
+            	
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("¡Pokémon Capturado!");
                 alert.setHeaderText(null);
@@ -220,6 +224,47 @@ public class CapturaController implements Initializable {
         } catch (SQLException ex) {
             ex.printStackTrace();
             // Manejo de errores
+        }
+    }
+    private List<Movimientos> obtenerMovimientosAlAzar(Connection conn) {
+        List<Movimientos> movimientos = new ArrayList<>();
+
+        String sql = "SELECT id_movimiento, nom_movimiento, potencia, tipo, estado, quita, turnos, mejora, cant_mejora, nivel_aprendizaje FROM movimientos ORDER BY RAND() LIMIT 4";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                int idMovimiento = rs.getInt("id_movimiento");
+                String nomMovimiento = rs.getString("nom_movimiento");
+                int potencia = rs.getInt("potencia");
+                String tipo = rs.getString("tipo");
+                String estado = rs.getString("estado");
+                int quita = rs.getInt("quita");
+                int turnos = rs.getInt("turnos");
+                String mejora = rs.getString("mejora");
+                int cantMejora = rs.getInt("cant_mejora");
+                int nivelAprendizaje = rs.getInt("nivel_aprendizaje");
+                movimientos.add(new Movimientos(idMovimiento, nomMovimiento, potencia, tipo, estado, quita, turnos, mejora, cantMejora, nivelAprendizaje));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CapturaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return movimientos;
+    }
+
+    // Método para asignar movimientos a un Pokémon
+    private void asignarMovimientosAPokemon(int idPokemon, List<Movimientos> movimientos, Connection conn) {
+        String sql = "INSERT INTO movimientos_pokemon (id_pokemon, id_movimiento, activo) VALUES (?, ?, '0')";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            for (Movimientos movimiento : movimientos) {
+                stmt.setInt(1, idPokemon);
+                stmt.setInt(2, movimiento.getIdMovimiento());
+                stmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CapturaController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
