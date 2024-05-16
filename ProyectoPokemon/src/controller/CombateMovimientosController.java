@@ -142,6 +142,12 @@ public class CombateMovimientosController implements Initializable {
             PokemonVitalidad pokemonVitalidadRival = listaVitalidadRival.get(0); // Obtener el primer Pokémon del rival
             vitalidadPokemonRival.setText(pokemonVitalidadRival.vitalidad + "/" + pokemonVitalidadRival.vitalidadMax);
         }
+        
+        // Obtener los movimientos del primer Pokémon del usuario
+        List<String> movimientosPokemonUsuario = obtenerMovimientosPokemon(obtenerPrimerPokemonUsuario(id_usuario));
+
+        // Asignar los movimientos a los botones correspondientes
+        asignarMovimientosABotones(movimientosPokemonUsuario);
     	
     }
     
@@ -322,6 +328,59 @@ public class CombateMovimientosController implements Initializable {
             this.mote = mote;
             this.vitalidadMax = vitalidadMax;
             this.vitalidad = vitalidad;
+        }
+        
+        public void setVitalidad(int vitalidad_nueva) {
+            this.vitalidad = vitalidad_nueva;
+        }
+    }
+    
+    private int obtenerPrimerPokemonUsuario(String idUsuario) {
+        int primerPokemon = 0;
+        String sql = "SELECT id_pokemon FROM pokemon WHERE id_entrenador = ? ORDER BY id_pokemon LIMIT 1";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idUsuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    primerPokemon = rs.getInt("id_pokemon");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return primerPokemon;
+    }
+    
+    // Método para obtener los movimientos de un Pokémon
+    private List<String> obtenerMovimientosPokemon(int pokemon) {
+        List<String> movimientos = new ArrayList<>();
+        String sql = "SELECT nom_movimiento FROM movimientos_pokemon mp JOIN movimientos m ON mp.id_movimiento = m.id_movimiento WHERE mp.id_pokemon = ?";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, pokemon);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    movimientos.add(rs.getString("nom_movimiento"));
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return movimientos;
+    }
+
+    // Método para asignar los movimientos a los botones
+    private void asignarMovimientosABotones(List<String> movimientos) {
+        if (movimientos.size() >= 4) {
+            ataque1.setText(movimientos.get(0));
+            ataque2.setText(movimientos.get(1));
+            ataque3.setText(movimientos.get(2));
+            ataque4.setText(movimientos.get(3));
         }
     }
     
