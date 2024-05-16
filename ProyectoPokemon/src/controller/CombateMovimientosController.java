@@ -69,6 +69,12 @@ public class CombateMovimientosController implements Initializable {
     private Label nombrePokemonRival;
     
     @FXML
+    private Label vitalidadPokemon;
+    
+    @FXML
+    private Label vitalidadPokemonRival;
+    
+    @FXML
     void usarAtaque1(ActionEvent event) {
     	loadStage("../view/COMBATE-SCENE.fxml", event);
     }
@@ -121,6 +127,21 @@ public class CombateMovimientosController implements Initializable {
         nombreRival.setText(CombateSessionManager.getNombreEntrenadorRival());
         nombrePokemonRival.setText(CombateSessionManager.getNombrePokemonRival());
         cambiarImagen(imgPokemonRival, CombateSessionManager.getNombrePokemonRival());
+        
+        
+        List<PokemonVitalidad> listaVitalidad = obtenerVitalidadPokemon(SessionManager.getEntrenador().getId_entrenador());
+        if (!listaVitalidad.isEmpty()) {
+            PokemonVitalidad pokemonVitalidad = listaVitalidad.get(0); // Obtener el primer Pokémon del equipo
+            vitalidadPokemon.setText(pokemonVitalidad.vitalidad + "/" + pokemonVitalidad.vitalidadMax);
+        }
+
+        // Obtener y mostrar la vitalidad del Pokémon rival
+        // Suponiendo que CombateSessionManager tiene un método para obtener el ID del Pokémon rival
+        List<PokemonVitalidad> listaVitalidadRival = obtenerVitalidadPokemon(CombateSessionManager.getIdRival());
+        if (!listaVitalidadRival.isEmpty()) {
+            PokemonVitalidad pokemonVitalidadRival = listaVitalidadRival.get(0); // Obtener el primer Pokémon del rival
+            vitalidadPokemonRival.setText(pokemonVitalidadRival.vitalidad + "/" + pokemonVitalidadRival.vitalidadMax);
+        }
     	
     }
     
@@ -268,6 +289,40 @@ public class CombateMovimientosController implements Initializable {
         return pokemon;
     }
     
-    
+    private List<PokemonVitalidad> obtenerVitalidadPokemon(int idEntrenador) {
+        List<PokemonVitalidad> listaVitalidad = new ArrayList<>();
+
+        String sql = "SELECT mote, vitalidad_max, vitalidad FROM pokemon WHERE id_entrenador = ?";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idEntrenador);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String mote = rs.getString("mote");
+                    int vitalidadMax = rs.getInt("vitalidad_max");
+                    int vitalidad = rs.getInt("vitalidad");
+                    listaVitalidad.add(new PokemonVitalidad(mote, vitalidadMax, vitalidad));
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return listaVitalidad;
+    }
+
+    // Clase interna para manejar la vitalidad de los Pokémon
+    private static class PokemonVitalidad {
+        String mote;
+        int vitalidadMax;
+        int vitalidad;
+
+        PokemonVitalidad(String mote, int vitalidadMax, int vitalidad) {
+            this.mote = mote;
+            this.vitalidadMax = vitalidadMax;
+            this.vitalidad = vitalidad;
+        }
+    }
     
 }
