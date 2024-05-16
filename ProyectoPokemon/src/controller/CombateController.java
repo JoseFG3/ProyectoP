@@ -89,9 +89,11 @@ public class CombateController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
     	
     	String id_usuario = SessionManager.getEntrenador().getNom_entrenador();
-    	List<String> pokemon = obtenerEquipoPokemon(id_usuario);
-    	
     	nombreUsuario.setText(id_usuario);
+
+    	
+    	List<String> pokemon = obtenerEquipoPokemon(SessionManager.getEntrenador().getId_entrenador());
+    	
         if (pokemon.get(0) != null) {
             cambiarImagen(imgPokemon, pokemon.get(0));
             nombrePokemon.setText(pokemon.get(0));
@@ -236,7 +238,7 @@ public class CombateController implements Initializable {
         return pokemonesRival.get(indice);
     }
     
-    private List<String> obtenerEquipoPokemon(String idUsuario) {
+    private List<String> obtenerEquipoPokemon(int idUsuario) {
         List<String> pokemon = new ArrayList<>();
         
         String sql = "SELECT * FROM pokemon " +
@@ -247,9 +249,7 @@ public class CombateController implements Initializable {
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "");
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, idUsuario);
-
+            stmt.setInt(1, idUsuario);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     pokemon.add(rs.getString("mote"));
