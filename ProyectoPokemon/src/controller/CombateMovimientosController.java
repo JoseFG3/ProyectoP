@@ -130,7 +130,7 @@ public class CombateMovimientosController implements Initializable {
         cambiarImagen(imgPokemonRival, CombateSessionManager.getNombrePokemonRival());
         
         
-        List<PokemonVitalidad> listaVitalidad = obtenerVitalidadPokemon(SessionManager.getEntrenador().getId_entrenador());
+        List<PokemonVitalidad> listaVitalidad = obtenerVitalidadPokemon(id_usuario);
         if (!listaVitalidad.isEmpty()) {
             PokemonVitalidad pokemonVitalidad = listaVitalidad.get(0); // Obtener el primer Pokémon del equipo
             vitalidadPokemon.setText(pokemonVitalidad.vitalidad + "/" + pokemonVitalidad.vitalidadMax);
