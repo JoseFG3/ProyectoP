@@ -130,6 +130,7 @@ public class TiendaController implements Initializable{
 		cargarDineroUsuarioDesdeBD();
 		
 	}
+	
 	private void cargarDineroUsuarioDesdeBD() {
 
         int idEntrenador = SessionManager.getEntrenador().getId_entrenador();

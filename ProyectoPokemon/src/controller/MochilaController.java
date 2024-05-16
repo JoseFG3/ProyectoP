@@ -41,32 +41,32 @@ public class MochilaController implements Initializable{
     private Button btnPluma;
 
     @FXML
-    void ComprarAnillo(ActionEvent event) {
+    void usarAnillo(ActionEvent event) {
 
     }
 
     @FXML
-    void ComprarBaston(ActionEvent event) {
+    void usarBaston(ActionEvent event) {
 
     }
 
     @FXML
-    void ComprarChaleco(ActionEvent event) {
+    void usarChaleco(ActionEvent event) {
 
     }
 
     @FXML
-    void ComprarPesas(ActionEvent event) {
+    void usarPesas(ActionEvent event) {
 
     }
 
     @FXML
-    void ComprarPilas(ActionEvent event) {
+    void usarPilas(ActionEvent event) {
 
     }
 
     @FXML
-    void ComprarPluma(ActionEvent event) {
+    void usarPluma(ActionEvent event) {
 
     }
     @FXML
