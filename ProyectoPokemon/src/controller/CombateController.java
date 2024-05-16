@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -87,8 +88,14 @@ public class CombateController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     	
-    	nombreUsuario.setText(SessionManager.getEntrenador().getNom_entrenador());
-        cambiarImagen(imgPokemon, "Fearow");
+    	String id_usuario = SessionManager.getEntrenador().getNom_entrenador();
+    	List<String> pokemon = obtenerEquipoPokemon(id_usuario);
+    	
+    	nombreUsuario.setText(id_usuario);
+        if (pokemon.get(0) != null) {
+            cambiarImagen(imgPokemon, pokemon.get(0));
+            nombrePokemon.setText(pokemon.get(0));
+        }
 
         if (CombateSessionManager.getIdRival() == 0) {
             try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
@@ -229,5 +236,41 @@ public class CombateController implements Initializable {
         return pokemonesRival.get(indice);
     }
     
+    private List<String> obtenerEquipoPokemon(String idUsuario) {
+        List<String> pokemon = new ArrayList<>();
+        
+        String sql = "SELECT * FROM pokemon " +
+                     "WHERE id_entrenador = ? " +
+                     "ORDER BY id_pokemon " +
+                     "LIMIT 6";
+
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, idUsuario);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    pokemon.add(rs.getString("mote"));
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        while (pokemon.size() < 6) {
+        	pokemon.add(null);
+        }
+        return pokemon;
+    }
+	
+    private void mostrarMensaje(String titulo, String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
     
 }
