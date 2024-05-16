@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CentroPokemonController">
    <children>
       <ImageView fitHeight="421.0" fitWidth="861.0">
          <image>
@@ -21,44 +22,86 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Button layoutX="377.0" layoutY="324.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="106.0" text="RECUPERAR" />
+      <Button fx:id="btnRecuperar" layoutX="377.0" layoutY="324.0" mnemonicParsing="false" onAction="#recuperarVitalidad" prefHeight="42.0" prefWidth="106.0" text="RECUPERAR" />
       <AnchorPane layoutX="272.0" layoutY="-1.0" prefHeight="354.0" prefWidth="501.0">
          <children>
-            <ImageView fitHeight="184.0" fitWidth="179.0" layoutX="315.0" layoutY="-22.0">
+            <ImageView fitHeight="184.0" fitWidth="213.0" layoutX="281.0" layoutY="-22.0">
                <image>
                   <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="184.0" fitWidth="179.0" layoutX="47.0" layoutY="-22.0">
+            <ImageView fitHeight="184.0" fitWidth="213.0" layoutX="14.0" layoutY="-22.0">
                <image>
                   <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="184.0" fitWidth="179.0" layoutX="318.0" layoutY="70.0">
+            <ImageView fitHeight="184.0" fitWidth="213.0" layoutX="284.0" layoutY="70.0">
                <image>
                   <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="184.0" fitWidth="179.0" layoutX="47.0" layoutY="75.0">
+            <ImageView fitHeight="184.0" fitWidth="213.0" layoutX="14.0" layoutY="78.0">
                <image>
                   <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="184.0" fitWidth="179.0" layoutX="318.0" layoutY="170.0">
+            <ImageView fitHeight="184.0" fitWidth="213.0" layoutX="284.0" layoutY="170.0">
                <image>
                   <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="184.0" fitWidth="179.0" layoutX="47.0" layoutY="170.0">
+            <ImageView fitHeight="184.0" fitWidth="213.0" layoutX="13.0" layoutY="170.0">
                <image>
                   <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
                </image>
             </ImageView>
+            <AnchorPane layoutX="21.0" layoutY="23.0" prefHeight="86.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="imgPokemon1" fitHeight="59.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelPokemon1" layoutX="82.0" layoutY="14.0" prefHeight="18.0" prefWidth="98.0" text="Nombre Pokemon" />
+                  <Label fx:id="labelVitalidad1" layoutX="81.0" layoutY="44.0" prefHeight="18.0" prefWidth="98.0" text="Vitalidad" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="21.0" layoutY="119.0" prefHeight="86.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="imgPokemon2" fitHeight="59.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelPokemon2" layoutX="82.0" layoutY="14.0" prefHeight="18.0" prefWidth="98.0" text="Nombre Pokemon" />
+                  <Label fx:id="labelVitalidad2" layoutX="81.0" layoutY="44.0" prefHeight="18.0" prefWidth="98.0" text="Vitalidad" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="21.0" layoutY="219.0" prefHeight="86.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="imgPokemon3" fitHeight="59.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelPokemon3" layoutX="82.0" layoutY="14.0" prefHeight="18.0" prefWidth="98.0" text="Nombre Pokemon" />
+                  <Label fx:id="labelVitalidad3" layoutX="81.0" layoutY="44.0" prefHeight="18.0" prefWidth="98.0" text="Vitalidad" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="292.0" layoutY="219.0" prefHeight="86.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="imgPokemon6" fitHeight="59.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelPokemon6" layoutX="82.0" layoutY="14.0" prefHeight="18.0" prefWidth="98.0" text="Nombre Pokemon" />
+                  <Label fx:id="labelVitalidad6" layoutX="81.0" layoutY="44.0" prefHeight="18.0" prefWidth="98.0" text="Vitalidad" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="292.0" layoutY="119.0" prefHeight="86.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="imgPokemon5" fitHeight="59.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelPokemon5" layoutX="82.0" layoutY="14.0" prefHeight="18.0" prefWidth="98.0" text="Nombre Pokemon" />
+                  <Label fx:id="labelVitalidad5" layoutX="81.0" layoutY="44.0" prefHeight="18.0" prefWidth="98.0" text="Vitalidad" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="284.0" layoutY="23.0" prefHeight="86.0" prefWidth="190.0">
+               <children>
+                  <ImageView fx:id="imgPokemon4" fitHeight="59.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labelPokemon4" layoutX="82.0" layoutY="14.0" prefHeight="18.0" prefWidth="98.0" text="Nombre Pokemon" />
+                  <Label fx:id="labelVitalidad4" layoutX="81.0" layoutY="44.0" prefHeight="18.0" prefWidth="98.0" text="Vitalidad" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="729.0" layoutY="301.0" prefHeight="124.0" prefWidth="134.0">
          <children>
-            <Button mnemonicParsing="false" opacity="0.0" prefHeight="128.0" prefWidth="135.0" text="SALIR" />
+            <Button fx:id="btnReturn" mnemonicParsing="false" onAction="#irMenu" opacity="0.0" prefHeight="128.0" prefWidth="135.0" text="SALIR" />
             <ImageView fitHeight="104.0" fitWidth="106.0" layoutX="15.0" layoutY="12.0">
                <image>
                   <Image url="@../recursos/BOTON-RETURN.jpg" />

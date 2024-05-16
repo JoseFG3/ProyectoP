@@ -1,5 +1,4 @@
 package controller;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -13,6 +12,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -30,74 +31,109 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import util.SessionManager;
-import javafx.application.Platform;
 
-public class EquipoController implements Initializable {
-
-    @FXML
-    private Button btnCajaPokemon;
+public class CentroPokemonController implements Initializable{
 
     @FXML
-    private Button btnSalir;
+    private Button btnRecuperar;
 
     @FXML
-    private ImageView imgRectangulo1;
+    private Button btnReturn;
 
-    @FXML
-    private ImageView imgRectangulo2;
-
-    @FXML
-    private ImageView imgRectangulo3;
-
-    @FXML
-    private ImageView imgRectangulo4;
-
-    @FXML
-    private ImageView imgRectangulo5;
-
-    @FXML
-    private ImageView imgRectangulo6;
-    
     @FXML
     private ImageView imgPokemon1;
-    
+
     @FXML
     private ImageView imgPokemon2;
-    
+
     @FXML
     private ImageView imgPokemon3;
-    
+
     @FXML
     private ImageView imgPokemon4;
-    
+
     @FXML
     private ImageView imgPokemon5;
-    
+
     @FXML
     private ImageView imgPokemon6;
-    
+
     @FXML
     private Label labelPokemon1;
-    
+
     @FXML
     private Label labelPokemon2;
-    
+
     @FXML
     private Label labelPokemon3;
-    
+
     @FXML
     private Label labelPokemon4;
-    
+
     @FXML
     private Label labelPokemon5;
-    
+
     @FXML
     private Label labelPokemon6;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-    	String id_usuario = SessionManager.getEntrenador().getNom_entrenador();
+    @FXML
+    private Label labelVitalidad1;
+
+    @FXML
+    private Label labelVitalidad2;
+
+    @FXML
+    private Label labelVitalidad3;
+
+    @FXML
+    private Label labelVitalidad4;
+
+    @FXML
+    private Label labelVitalidad5;
+
+    @FXML
+    private Label labelVitalidad6;
+
+    @FXML
+    void irMenu(ActionEvent event) {
+    	loadStage("../view/MENU-SCENE.fxml", event);
+    }
+
+    @FXML
+    void recuperarVitalidad(ActionEvent event) {
+
+    }
+    private void loadStage(String url, Event event) {
+        try {
+            Object eventSource = event.getSource();
+            Node sourceAsNode = (Node) eventSource;
+            Scene oldScene = sourceAsNode.getScene();
+            Window window = oldScene.getWindow();
+            Stage stage = (Stage) window;
+            stage.hide();
+
+            Parent root = FXMLLoader.load(getClass().getResource(url));
+            Scene scene = new Scene(root);
+
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.show();
+
+            newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    Platform.exit();
+                }
+            });
+
+        } catch (IOException ex) {
+            Logger.getLogger(EquipoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle rb) {
+		String id_usuario = SessionManager.getEntrenador().getNom_entrenador();
     	List<String> pokemon = obtenerEquipoPokemon(SessionManager.getEntrenador().getId_entrenador());
     	
         if (pokemon.get(0) != null) {
@@ -137,78 +173,13 @@ public class EquipoController implements Initializable {
         
         if (pokemon.get(5) != null) {
             cambiarImagen(imgPokemon6, pokemon.get(5));
-            labelPokemon6.setText(pokemon.get(6));
+            labelPokemon6.setText(pokemon.get(5));
         } else {
         	labelPokemon6.setText("");
         }
-    }
-
-    @FXML
-    private void irCajaPokemon(ActionEvent event) {
-        loadStage("../view/CAJA-POKEMON.fxml", event);
-    }
-
-    @FXML
-    private void salir(ActionEvent event) {
-        loadStage("../view/MENU-SCENE.fxml", event);
-    }
-
-    private void loadStage(String url, Event event) {
-        try {
-            Object eventSource = event.getSource();
-            Node sourceAsNode = (Node) eventSource;
-            Scene oldScene = sourceAsNode.getScene();
-            Window window = oldScene.getWindow();
-            Stage stage = (Stage) window;
-            stage.hide();
-
-            Parent root = FXMLLoader.load(getClass().getResource(url));
-            Scene scene = new Scene(root);
-
-            Stage newStage = new Stage();
-            newStage.setScene(scene);
-            newStage.show();
-
-            newStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent event) {
-                    Platform.exit();
-                }
-            });
-
-        } catch (IOException ex) {
-            Logger.getLogger(EquipoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //Metodo para cambiar imagen
-    private void cambiarImagen(ImageView imageView, String id_pokemon) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
-            // Ejecutar una consulta para obtener la imagen de la base de datos
-            String sql = "SELECT imagen FROM pokedex WHERE nom_pokemon = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setString(1, id_pokemon); // Aquí necesitas proporcionar el id de la imagen que deseas recuperar
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        // Recuperar la imagen como un conjunto de bytes desde la base de datos
-                        byte[] bytesImagen = rs.getBytes("imagen");
-
-                        // Convertir los bytes de la imagen en un objeto Image de JavaFX
-                        Image imagen = new Image(new ByteArrayInputStream(bytesImagen));
-
-                        // Establecer la imagen en el ImageView
-                        imageView.setImage(imagen);
-                    }
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            // Manejo de errores
-        }
-    }
-    
-    private List<String> obtenerEquipoPokemon(int idUsuario) {
-        List<String> pokemon = new ArrayList<>();
+	}
+	private List<String> obtenerEquipoPokemon(int idUsuario) {
+List<String> pokemon = new ArrayList<>();
         
         String sql = "SELECT * FROM pokemon " +
                      "WHERE id_entrenador = ? " +
@@ -234,6 +205,30 @@ public class EquipoController implements Initializable {
         	pokemon.add(null);
         }
         return pokemon;
-    }
-}
+    
+	}
+	 private void cambiarImagen(ImageView imageView, String id_pokemon) {
+	        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
+	            // Ejecutar una consulta para obtener la imagen de la base de datos
+	            String sql = "SELECT imagen FROM pokedex WHERE nom_pokemon = ?";
+	            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	                stmt.setString(1, id_pokemon); // Aquí necesitas proporcionar el id de la imagen que deseas recuperar
+	                try (ResultSet rs = stmt.executeQuery()) {
+	                    if (rs.next()) {
+	                        // Recuperar la imagen como un conjunto de bytes desde la base de datos
+	                        byte[] bytesImagen = rs.getBytes("imagen");
 
+	                        // Convertir los bytes de la imagen en un objeto Image de JavaFX
+	                        Image imagen = new Image(new ByteArrayInputStream(bytesImagen));
+
+	                        // Establecer la imagen en el ImageView
+	                        imageView.setImage(imagen);
+	                    }
+	                }
+	            }
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	            // Manejo de errores
+	        }
+	    }
+}
