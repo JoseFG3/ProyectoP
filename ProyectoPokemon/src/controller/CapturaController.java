@@ -230,7 +230,7 @@ public class CapturaController implements Initializable {
     private List<Movimientos> obtenerMovimientosAlAzar(Connection conn, String tipoPokemon) {
         List<Movimientos> movimientos = new ArrayList<>();
 
-        String sql = "SELECT id_movimiento, nom_movimiento, potencia, tipo, estado, quita, turnos, mejora, cant_mejora, nivel_aprendizaje FROM movimientos WHERE tipo = ? ORDER BY RAND() LIMIT 4";
+        String sql = "SELECT id_movimiento, nom_movimiento, potencia, tipo FROM movimientos WHERE tipo = ? ORDER BY RAND() LIMIT 4";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
              stmt.setString(1, tipoPokemon);
@@ -240,13 +240,7 @@ public class CapturaController implements Initializable {
 	                String nomMovimiento = rs.getString("nom_movimiento");
 	                int potencia = rs.getInt("potencia");
 	                String tipo = rs.getString("tipo");
-	                String estado = rs.getString("estado");
-	                int quita = rs.getInt("quita");
-	                int turnos = rs.getInt("turnos");
-	                String mejora = rs.getString("mejora");
-	                int cantMejora = rs.getInt("cant_mejora");
-	                int nivelAprendizaje = rs.getInt("nivel_aprendizaje");
-	                movimientos.add(new Movimientos(idMovimiento, nomMovimiento, potencia, tipo, estado, quita, turnos, mejora, cantMejora, nivelAprendizaje));
+	                movimientos.add(new Movimientos(idMovimiento, nomMovimiento, potencia, tipo));
 	            }
 	        }
         } catch (SQLException ex) {
