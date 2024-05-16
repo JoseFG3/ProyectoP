@@ -1,2 +1,4 @@
+/application/
+/bbdd/
 /controller/
-/view/
+/util/
