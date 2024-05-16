@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="863.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EquipoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="863.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PokemonMachoController">
    <children>
       <ImageView fitHeight="539.0" fitWidth="863.0">
          <image>
@@ -20,44 +20,46 @@
                <children>
                   <ImageView fx:id="imgPokemon1" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Label fx:id="labelPokemon1" layoutX="112.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerPokemon1" layoutX="-2.0" layoutY="2.0" mnemonicParsing="false" onAction="#escogerPokemon1" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="25.0" layoutY="138.0" prefHeight="90.0" prefWidth="250.0">
                <children>
                   <ImageView fx:id="imgPokemon3" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Label fx:id="labelPokemon3" layoutX="112.0" layoutY="28.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerPokemon3" mnemonicParsing="false" onAction="#escogerPokemon3" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="397.0" layoutY="131.0" prefHeight="90.0" prefWidth="250.0">
                <children>
                   <ImageView fx:id="imgPokemon4" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Label fx:id="labelPokemon4" layoutX="111.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerPokemon4" layoutY="9.0" mnemonicParsing="false" onAction="#escogerPokemon4" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="397.0" layoutY="20.0" prefHeight="90.0" prefWidth="250.0">
                <children>
                   <ImageView fx:id="imgPokemon2" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Label fx:id="labelPokemon2" layoutX="112.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerPokemon2" mnemonicParsing="false" onAction="#escogerPokemon2" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="25.0" layoutY="252.0" prefHeight="90.0" prefWidth="250.0">
                <children>
                   <ImageView fx:id="imgPokemon5" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Label fx:id="labelPokemon5" layoutX="116.0" layoutY="28.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerPokemon5" layoutY="1.0" mnemonicParsing="false" onAction="#escogerPokemon5" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="397.0" layoutY="240.0" prefHeight="90.0" prefWidth="250.0">
                <children>
                   <ImageView fx:id="imgPokemon6" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <Label fx:id="labelPokemon6" layoutX="112.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerPokemon6" layoutY="9.0" mnemonicParsing="false" onAction="#escogerPokemon6" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <Button fx:id="btnCajaPokemon" layoutX="366.0" layoutY="442.0" mnemonicParsing="false" onAction="#irCajaPokemon" prefHeight="49.0" prefWidth="126.0" text="CAJA POKEMON">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
       <AnchorPane layoutX="692.0" layoutY="406.0" prefHeight="118.0" prefWidth="139.0">
          <children>
             <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#salir" opacity="0.0" prefHeight="118.0" prefWidth="139.0" text="SALIR">

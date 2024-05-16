@@ -11,41 +11,11 @@
    <children>
       <ImageView fitHeight="539.0" fitWidth="863.0">
          <image>
-            <Image url="@../recursos/EQUIPO-SCENE.jpg" />
+            <Image url="@../recursos/EquipoImagen.png" />
          </image>
       </ImageView>
       <AnchorPane layoutX="96.0" layoutY="51.0" prefHeight="342.0" prefWidth="672.0">
          <children>
-            <ImageView fitHeight="223.0" fitWidth="300.0" layoutX="372.0" layoutY="-40.0">
-               <image>
-                  <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="223.0" fitWidth="300.0" layoutY="-32.0">
-               <image>
-                  <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="223.0" fitWidth="300.0" layoutY="80.0">
-               <image>
-                  <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="223.0" fitWidth="300.0" layoutX="372.0" layoutY="79.0">
-               <image>
-                  <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="223.0" fitWidth="300.0" layoutY="191.0">
-               <image>
-                  <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="214.0" fitWidth="300.0" layoutX="372.0" layoutY="190.0">
-               <image>
-                  <Image url="@../recursos/RECTANGULO-ENFERMERIA.png" />
-               </image>
-            </ImageView>
             <AnchorPane layoutX="25.0" layoutY="20.0" prefHeight="90.0" prefWidth="250.0">
                <children>
                   <ImageView fx:id="imgPokemon1" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -55,13 +25,13 @@
             <AnchorPane layoutX="25.0" layoutY="138.0" prefHeight="90.0" prefWidth="250.0">
                <children>
                   <ImageView fx:id="imgPokemon3" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Label fx:id="labelPokemon3" layoutX="112.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Label fx:id="labelPokemon3" layoutX="112.0" layoutY="28.0" text="Nombre Pokemon" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="397.0" layoutY="131.0" prefHeight="90.0" prefWidth="250.0">
                <children>
                   <ImageView fx:id="imgPokemon4" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Label fx:id="labelPokemon4" layoutX="112.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Label fx:id="labelPokemon4" layoutX="111.0" layoutY="37.0" text="Nombre Pokemon" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="397.0" layoutY="20.0" prefHeight="90.0" prefWidth="250.0">
@@ -73,7 +43,7 @@
             <AnchorPane layoutX="25.0" layoutY="252.0" prefHeight="90.0" prefWidth="250.0">
                <children>
                   <ImageView fx:id="imgPokemon5" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Label fx:id="labelPokemon5" layoutX="112.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Label fx:id="labelPokemon5" layoutX="116.0" layoutY="28.0" text="Nombre Pokemon" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="397.0" layoutY="240.0" prefHeight="90.0" prefWidth="250.0">
@@ -94,11 +64,6 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <ImageView fitHeight="110.0" fitWidth="118.0" layoutX="11.0" layoutY="12.0">
-               <image>
-                  <Image url="@../recursos/BOTON-RETURN.jpg" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
    </children>
