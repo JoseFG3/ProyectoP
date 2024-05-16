@@ -137,7 +137,7 @@ public class EquipoController implements Initializable {
         
         if (pokemon.get(5) != null) {
             cambiarImagen(imgPokemon6, pokemon.get(5));
-            labelPokemon6.setText(pokemon.get(6));
+            labelPokemon6.setText(pokemon.get(5));
         } else {
         	labelPokemon6.setText("");
         }
