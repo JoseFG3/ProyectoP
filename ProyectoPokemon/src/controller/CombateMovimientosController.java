@@ -162,7 +162,6 @@ public class CombateMovimientosController implements Initializable {
     
     private void realizarAtaque(int idMovimiento, Event event) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
-            conn.setAutoCommit(false);
 
             // Registrar acción del usuario
             registrarAccionUsuario(conn, idMovimiento);
@@ -180,8 +179,7 @@ public class CombateMovimientosController implements Initializable {
             registrarAccionRival(conn, movimientoRival);
             
             actualizarVitalidad(conn, obtenerPrimerPokemonUsuario(SessionManager.getEntrenador().getId_entrenador()), idMovimiento, CombateSessionManager.getIdPokemonRival(), movimientoRival);
-            // Actualizar la interfaz de usuario después de realizar los ataques
-            conn.commit();
+
             loadStage("../view/COMBATE-SCENE.fxml", event);
 
         } catch (SQLException ex) {
