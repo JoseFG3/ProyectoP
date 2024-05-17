@@ -83,7 +83,13 @@ public class CombateController implements Initializable {
 
     @FXML
     void empezarCombate(ActionEvent event) {
-        loadStage("../view/COMBATE-MOVIMIENTOS.fxml", event);
+    	List<PokemonVitalidad> listaVitalidad = obtenerVitalidadPokemon(SessionManager.getEntrenador().getId_entrenador());
+    	if (listaVitalidad.get(0).vitalidad == 0) {
+    		mostrarMensaje("Error", "No puedes combatir con 0 de vida");
+    	} else {
+    		loadStage("../view/COMBATE-MOVIMIENTOS.fxml", event);
+    	}
+    	
     }
 
     @FXML
@@ -94,7 +100,12 @@ public class CombateController implements Initializable {
 
     @FXML
     void irMochila(ActionEvent event) {
-        loadStage("../view/MOCHILA-SCENE.fxml", event);
+    	List<PokemonVitalidad> listaVitalidad = obtenerVitalidadPokemon(SessionManager.getEntrenador().getId_entrenador());
+    	if (listaVitalidad.get(0).vitalidad == 0) {
+    		mostrarMensaje("Error", "No puedes combatir con 0 de vida");
+    	} else {
+    		loadStage("../view/MOCHILA-SCENE.fxml", event);
+    	}
     }
 
     @FXML

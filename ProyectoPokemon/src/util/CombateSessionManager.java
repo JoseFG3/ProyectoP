@@ -1,5 +1,9 @@
 package util;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CombateSessionManager {
@@ -56,5 +60,24 @@ public class CombateSessionManager {
         movimientosPokemonRival = null;
         idPokemonRival = 0;
 		
+        curarPokemon();
 	}
+	
+    private static void curarPokemon() {
+        String url = "jdbc:mysql://localhost:3306/getbacktowork";
+        String user = "root";
+        String password = "";
+
+        String sql = "UPDATE pokemon SET vitalidad = vitalidad_max WHERE id_pokemon BETWEEN 13 AND 68";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            int rowsUpdated = stmt.executeUpdate();
+            System.out.println("Pokémon curados: " + rowsUpdated);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
