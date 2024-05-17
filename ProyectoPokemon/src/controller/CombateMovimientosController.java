@@ -197,7 +197,7 @@ public class CombateMovimientosController implements Initializable {
         String insertTurnoSql = "INSERT INTO turno (id_turno, id_pokemon_usuario, id_movimiento_usuario) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(insertTurnoSql)) {
             stmt.setInt(1, maxIdTurno);
-            stmt.setInt(2, idPokemonUsuario);
+            stmt.setInt(2, obtenerPrimerPokemonUsuario(SessionManager.getEntrenador().getId_entrenador()));
             stmt.setInt(3, idMovimiento);
             stmt.executeUpdate();
         }

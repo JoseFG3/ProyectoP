@@ -106,7 +106,7 @@ public class MenuController  implements Initializable{
     @FXML
     void irEntrenamiento(ActionEvent event) {
     	
-    	loadStage("../view/ENTRENAMIENTO-SCENE.fxml", event);
+    	mostrarMensaje("Error", "Esta escena no esta creada aun o es inservible");
 
     }
 
