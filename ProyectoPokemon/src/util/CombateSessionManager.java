@@ -13,45 +13,47 @@ public class CombateSessionManager {
     private static String nombrePokemonRival;
     private static List<Integer> movimientosPokemonRival;
 
-    public static int getIdRival() {
-        return idRival;
-    }
 
-    public static void setIdRival(int idRival) {
-        CombateSessionManager.idRival = idRival;
-    }
 
-    public static String getNombreEntrenadorRival() {
-        return nombreEntrenadorRival;
-    }
+	public static int getIdRival() {
+		return idRival;
+	}
 
-    public static void setNombreEntrenadorRival(String nombreEntrenadorRival) {
-        CombateSessionManager.nombreEntrenadorRival = nombreEntrenadorRival;
-    }
+	public static void setIdRival(int idRival) {
+		CombateSessionManager.idRival = idRival;
+	}
 
-    public static int getIdPokemonRival() {
-        return idPokemonRival;
-    }
+	public static String getNombreEntrenadorRival() {
+		return nombreEntrenadorRival;
+	}
 
-    public static void setIdPokemonRival(int idPokemonRival) {
-        CombateSessionManager.idPokemonRival = idPokemonRival;
-    }
+	public static void setNombreEntrenadorRival(String nombreEntrenadorRival) {
+		CombateSessionManager.nombreEntrenadorRival = nombreEntrenadorRival;
+	}
 
-    public static String getNombrePokemonRival() {
-        return nombrePokemonRival;
-    }
+	public static int getIdPokemonRival() {
+		return idPokemonRival;
+	}
 
-    public static void setNombrePokemonRival(String nombrePokemonRival) {
-        CombateSessionManager.nombrePokemonRival = nombrePokemonRival;
-    }
+	public static void setIdPokemonRival(int idPokemonRival) {
+		CombateSessionManager.idPokemonRival = idPokemonRival;
+	}
 
-    public static List<Integer> getMovimientosPokemonRival() {
-        return movimientosPokemonRival;
-    }
+	public static String getNombrePokemonRival() {
+		return nombrePokemonRival;
+	}
 
-    public static void setMovimientosPokemonRival(List<Integer> movimientos) {
-        CombateSessionManager.movimientosPokemonRival = movimientos;
-    }
+	public static void setNombrePokemonRival(String nombrePokemonRival) {
+		CombateSessionManager.nombrePokemonRival = nombrePokemonRival;
+	}
+
+	public static List<Integer> getMovimientosPokemonRival() {
+		return movimientosPokemonRival;
+	}
+
+	public static void setMovimientosPokemonRival(List<Integer> movimientosPokemonRival) {
+		CombateSessionManager.movimientosPokemonRival = movimientosPokemonRival;
+	}
 
 	public static void clear() {
 		idRival = 0;
@@ -63,7 +65,7 @@ public class CombateSessionManager {
         curarPokemon();
 	}
 	
-    private static void curarPokemon() {
+    public static void curarPokemon() {
         String url = "jdbc:mysql://localhost:3306/getbacktowork";
         String user = "root";
         String password = "";

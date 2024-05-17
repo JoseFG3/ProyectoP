@@ -115,7 +115,6 @@ public class CombateController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-
         String id_usuario = SessionManager.getEntrenador().getNom_entrenador();
         nombreUsuario.setText(id_usuario);
 
@@ -156,21 +155,22 @@ public class CombateController implements Initializable {
         List<PokemonVitalidad> listaVitalidadRival = obtenerVitalidadPokemon(CombateSessionManager.getIdRival());
         if (!listaVitalidadRival.isEmpty()) {
             PokemonVitalidad pokemonVitalidadRival = listaVitalidadRival.get(0); // Obtener el primer Pokémon del rival
+            System.out.println(pokemonVitalidadRival.vitalidad);
             vitalidadPokemonRival.setText(pokemonVitalidadRival.vitalidad + "/" + pokemonVitalidadRival.vitalidadMax);
             progressBarPokemonRival.setProgress((double) pokemonVitalidadRival.vitalidad / pokemonVitalidadRival.vitalidadMax);
         }
-        	
+
         int vitalidadUsuario = listaVitalidad.get(0).vitalidad;
         int vitalidadRival = listaVitalidadRival.get(0).vitalidad;
-        
-        if (vitalidadUsuario == 0) {
-        	mostrarMensaje("¡Enhorabuena!","Has ganado!!");
-        	CombateSessionManager.clear();
-        } else if (vitalidadRival == 0)  {
-        	mostrarMensaje("Ohhhhhhh", "Has perdido :( ");
-        	CombateSessionManager.clear();
-        }
 
+        if (vitalidadRival == 0) {
+            mostrarMensaje("¡Enhorabuena!", "Has ganado!!");
+            incrementarPokedolaresUsuario(SessionManager.getEntrenador().getId_entrenador(), CombateSessionManager.getIdRival());
+            CombateSessionManager.clear();
+        } else if (vitalidadUsuario == 0) {
+            mostrarMensaje("Ohhhhhhh", "Has perdido :( ");
+            CombateSessionManager.clear();
+        }
     }
 
     private void loadStage(String url, Event event) {
@@ -251,7 +251,6 @@ public class CombateController implements Initializable {
         return null;
     }
 
-    // Método para seleccionar un Pokémon al azar del rival por ID de entrenador
     private int seleccionarPokemonRivalAleatorio(Connection conn, int idRival) throws SQLException {
         List<Integer> pokemonesRivalIds = new ArrayList<>();
         List<String> pokemonesRivalNombres = new ArrayList<>();
@@ -336,6 +335,7 @@ public class CombateController implements Initializable {
         return listaVitalidad;
     }
 
+
     private static class PokemonVitalidad {
         String mote;
         int vitalidadMax;
@@ -347,6 +347,37 @@ public class CombateController implements Initializable {
             this.vitalidad = vitalidad;
         }
     }
+    
+    private void incrementarPokedolaresUsuario(int idUsuario, int idRival) {
+        String url = "jdbc:mysql://localhost:3306/getbacktowork";
+        String user = "root";
+        String password = "";
+
+        String sqlSelect = "SELECT pokedollars FROM entrenador WHERE id_entrenador = ?";
+        String sqlUpdate = "UPDATE entrenador SET pokedollars = pokedollars + ? WHERE id_entrenador = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement stmtSelect = conn.prepareStatement(sqlSelect);
+             PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+
+            // Obtener los pokedólares del rival
+            stmtSelect.setInt(1, idRival);
+            ResultSet rs = stmtSelect.executeQuery();
+            int pokedolaresRival = 0;
+            if (rs.next()) {
+                pokedolaresRival = rs.getInt("pokedollars");
+            }
+
+            // Incrementar los pokedólares del usuario
+            stmtUpdate.setInt(1, pokedolaresRival);
+            stmtUpdate.setInt(2, idUsuario);
+            stmtUpdate.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void mostrarMensaje(String titulo, String mensaje) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
