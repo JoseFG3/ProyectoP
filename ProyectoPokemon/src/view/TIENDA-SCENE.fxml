@@ -16,12 +16,12 @@
       </ImageView>
       <AnchorPane layoutX="618.0" layoutY="327.0" prefHeight="110.0" prefWidth="116.0">
          <children>
-            <Button fx:id="btnReturn" mnemonicParsing="false" onAction="#irMenu" opacity="0.0" prefHeight="110.0" prefWidth="116.0" text="SALIR" />
             <ImageView fitHeight="94.0" fitWidth="102.0" layoutX="7.0" layoutY="8.0">
                <image>
                   <Image url="@../recursos/BOTON-RETURN.jpg" />
                </image>
             </ImageView>
+            <Button fx:id="btnReturn" mnemonicParsing="false" onAction="#irMenu" opacity="0.0" prefHeight="110.0" prefWidth="116.0" text="SALIR" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="75.0" layoutY="153.0" prefHeight="283.0" prefWidth="200.0" />
