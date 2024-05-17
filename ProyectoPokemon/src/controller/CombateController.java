@@ -30,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -73,6 +74,12 @@ public class CombateController implements Initializable {
 
     @FXML
     private Label vitalidadPokemonRival;
+    
+    @FXML
+    private ProgressBar progressBarPokemon;
+    
+    @FXML
+    private ProgressBar progressBarPokemonRival;
 
     @FXML
     void empezarCombate(ActionEvent event) {
@@ -132,12 +139,25 @@ public class CombateController implements Initializable {
         if (!listaVitalidad.isEmpty()) {
             PokemonVitalidad pokemonVitalidad = listaVitalidad.get(0); // Obtener el primer Pokémon del equipo
             vitalidadPokemon.setText(pokemonVitalidad.vitalidad + "/" + pokemonVitalidad.vitalidadMax);
+            progressBarPokemon.setProgress((double) pokemonVitalidad.vitalidad / pokemonVitalidad.vitalidadMax);
         }
 
         List<PokemonVitalidad> listaVitalidadRival = obtenerVitalidadPokemon(CombateSessionManager.getIdRival());
         if (!listaVitalidadRival.isEmpty()) {
             PokemonVitalidad pokemonVitalidadRival = listaVitalidadRival.get(0); // Obtener el primer Pokémon del rival
             vitalidadPokemonRival.setText(pokemonVitalidadRival.vitalidad + "/" + pokemonVitalidadRival.vitalidadMax);
+            progressBarPokemonRival.setProgress((double) pokemonVitalidadRival.vitalidad / pokemonVitalidadRival.vitalidadMax);
+        }
+        	
+        int vitalidadUsuario = listaVitalidad.get(0).vitalidad;
+        int vitalidadRival = listaVitalidadRival.get(0).vitalidad;
+        
+        if (vitalidadUsuario == 0) {
+        	mostrarMensaje("¡Enhorabuena!","Has ganado!!");
+        	CombateSessionManager.clear();
+        } else if (vitalidadRival == 0)  {
+        	mostrarMensaje("Ohhhhhhh", "Has perdido :( ");
+        	CombateSessionManager.clear();
         }
 
     }
