@@ -73,16 +73,27 @@ public class MenuController  implements Initializable{
 
     @FXML
     void irCombate(ActionEvent event) {
-    	String id_usuario = SessionManager.getEntrenador().getNom_entrenador();
     	List<String> pokemon = obtenerEquipoPokemon(SessionManager.getEntrenador().getId_entrenador());
-    	
-    	if (pokemon.get(0) != null) {
-        	loadStage("../view/COMBATE-SCENE.fxml", event);
-        } else {
-        	mostrarMensaje("Error", "No tienes ningun pokemon en tu equipo, asegurate de"
-        			+ " capturar alguno antes de ir a un combate");
-        }
 
+        if (pokemon.size() == 6) {
+            List<PokemonVitalidad> listaVitalidad = obtenerVitalidadPokemon(SessionManager.getEntrenador().getId_entrenador());
+
+            boolean allAtMaxVitality = true;
+            for (PokemonVitalidad p : listaVitalidad) {
+                if (p.getVitalidad() < p.getVitalidadMax()) {
+                    allAtMaxVitality = false;
+                    break;
+                }
+            }
+
+            if (allAtMaxVitality) {
+                loadStage("../view/COMBATE-SCENE.fxml", event);
+            } else {
+                mostrarMensaje("Error", "Uno o más Pokémon no están en su vitalidad máxima. Por favor, recupéralos antes de ir a un combate.");
+            }
+        } else {
+            mostrarMensaje("Error", "No tienes 6 Pokémon en tu equipo. Asegúrate de capturar más Pokémon antes de ir a un combate.");
+        }
     }
 
     @FXML
@@ -177,11 +188,52 @@ public class MenuController  implements Initializable{
 	        } catch (SQLException ex) {
 	            ex.printStackTrace();
 	        }
-	        
-	        while (pokemon.size() < 6) {
-	        	pokemon.add(null);
-	        }
+
 	        return pokemon;
+	    }
+	 
+	 private List<PokemonVitalidad> obtenerVitalidadPokemon(int idEntrenador) {
+	        List<PokemonVitalidad> listaVitalidad = new ArrayList<>();
+
+	        String sql = "SELECT mote, vitalidad_max, vitalidad FROM pokemon WHERE id_entrenador = ? LIMIT 6";
+
+	        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "");
+	             PreparedStatement stmt = conn.prepareStatement(sql)) {
+	            stmt.setInt(1, idEntrenador);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                while (rs.next()) {
+	                    String mote = rs.getString("mote");
+	                    int vitalidadMax = rs.getInt("vitalidad_max");
+	                    int vitalidad = rs.getInt("vitalidad");
+	                    listaVitalidad.add(new PokemonVitalidad(mote, vitalidadMax, vitalidad));
+	                }
+	            }
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        }
+
+	        return listaVitalidad;
+	    }
+
+	    // Clase interna para manejar la vitalidad de los Pokémon
+	    private static class PokemonVitalidad {
+	        String mote;
+	        int vitalidadMax;
+	        int vitalidad;
+
+	        PokemonVitalidad(String mote, int vitalidadMax, int vitalidad) {
+	            this.mote = mote;
+	            this.vitalidadMax = vitalidadMax;
+	            this.vitalidad = vitalidad;
+	        }
+	        
+	        public int getVitalidad() {
+	        	return vitalidad;
+	        }
+	        
+	        public int getVitalidadMax() {
+	        	return vitalidadMax;
+	        }
 	    }
 		
 	    private void mostrarMensaje(String titulo, String mensaje) {
