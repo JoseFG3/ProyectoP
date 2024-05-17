@@ -140,7 +140,7 @@ public class CombateMovimientosController implements Initializable {
             vitalidadPokemon.setText(pokemonVitalidad.vitalidad + "/" + pokemonVitalidad.vitalidadMax);
         }
 
-        List<PokemonVitalidad> listaVitalidadRival = obtenerVitalidadPokemon(idPokemonRival);
+        List<PokemonVitalidad> listaVitalidadRival = obtenerVitalidadPokemon(CombateSessionManager.getIdRival());
         if (!listaVitalidadRival.isEmpty()) {
             PokemonVitalidad pokemonVitalidadRival = listaVitalidadRival.get(0);
             vitalidadPokemonRival.setText(pokemonVitalidadRival.vitalidad + "/" + pokemonVitalidadRival.vitalidadMax);
@@ -169,10 +169,10 @@ public class CombateMovimientosController implements Initializable {
             }
 
             registrarAccionRival(conn, movimientoRival);
-
-            conn.commit();
-
+            
+            actualizarVitalidad(conn, obtenerPrimerPokemonUsuario(SessionManager.getEntrenador().getId_entrenador()), idMovimiento, CombateSessionManager.getIdPokemonRival(), movimientoRival);
             // Actualizar la interfaz de usuario después de realizar los ataques
+            conn.commit();
             loadStage("../view/COMBATE-SCENE.fxml", event);
 
         } catch (SQLException ex) {
@@ -256,12 +256,12 @@ public class CombateMovimientosController implements Initializable {
     }
 
     private int calcularDamage(Connection conn, int idMovimiento) throws SQLException {
-        String sql = "SELECT poder FROM movimientos WHERE id_movimiento = ?";
+        String sql = "SELECT potencia FROM movimientos WHERE id_movimiento = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idMovimiento);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("poder");
+                    return rs.getInt("potencia");
                 }
             }
         }

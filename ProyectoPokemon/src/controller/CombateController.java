@@ -116,8 +116,7 @@ public class CombateController implements Initializable {
                 String entrenadorRival = obtenerNombreEntrenador(conn, idRival);
                 CombateSessionManager.setNombreEntrenadorRival(entrenadorRival);
 
-                String pokemonRival = seleccionarPokemonRivalAleatorio(conn, idRival);
-                CombateSessionManager.setNombrePokemonRival(pokemonRival);
+                int pokemonRival = seleccionarPokemonRivalAleatorio(conn, idRival);
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -221,26 +220,49 @@ public class CombateController implements Initializable {
         return null;
     }
 
-    private String seleccionarPokemonRivalAleatorio(Connection conn, int idRival) throws SQLException {
-        List<String> pokemonesRival = new ArrayList<>();
-        String sql = "SELECT mote FROM pokemon WHERE id_entrenador = ?";
+    // Método para seleccionar un Pokémon al azar del rival por ID de entrenador
+    private int seleccionarPokemonRivalAleatorio(Connection conn, int idRival) throws SQLException {
+        List<Integer> pokemonesRivalIds = new ArrayList<>();
+        List<String> pokemonesRivalNombres = new ArrayList<>();
+        String sql = "SELECT id_pokemon, mote FROM pokemon WHERE id_entrenador = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idRival);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    pokemonesRival.add(rs.getString("mote"));
+                    pokemonesRivalIds.add(rs.getInt("id_pokemon"));
+                    pokemonesRivalNombres.add(rs.getString("mote"));
                 }
             }
         }
 
-        if (pokemonesRival.isEmpty()) {
-            return null;
+        if (pokemonesRivalIds.isEmpty() || pokemonesRivalNombres.isEmpty()) {
+            return 0;
         }
 
         Random random = new Random();
-        int indice = random.nextInt(pokemonesRival.size());
-        return pokemonesRival.get(indice);
+        int indice = random.nextInt(pokemonesRivalIds.size());
+        int idPokemonRival = pokemonesRivalIds.get(indice);
+        String nombrePokemonRival = pokemonesRivalNombres.get(indice);
+
+        CombateSessionManager.setIdPokemonRival(idPokemonRival);
+        CombateSessionManager.setNombrePokemonRival(nombrePokemonRival);
+
+        // Obtener movimientos del Pokémon rival
+        List<Integer> movimientosPokemonRival = new ArrayList<>();
+        String movimientosSql = "SELECT id_movimiento FROM movimientos_pokemon WHERE id_pokemon = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(movimientosSql)) {
+            stmt.setInt(1, idPokemonRival);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    movimientosPokemonRival.add(rs.getInt("id_movimiento"));
+                }
+            }
+        }
+        CombateSessionManager.setMovimientosPokemonRival(movimientosPokemonRival);
+
+        return idPokemonRival;
     }
+
 
     private List<String> obtenerEquipoPokemon(int idUsuario) {
         List<String> pokemon = new ArrayList<>();
