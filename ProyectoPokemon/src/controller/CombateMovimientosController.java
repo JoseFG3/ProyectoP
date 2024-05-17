@@ -74,82 +74,198 @@ public class CombateMovimientosController implements Initializable {
     @FXML
     private Label vitalidadPokemonRival;
     
+    private int idUsuario;
+    private int idRival;
+    private int idPokemonUsuario;
+    private int idPokemonRival;
+    
     @FXML
     void usarAtaque1(ActionEvent event) {
-    	loadStage("../view/COMBATE-SCENE.fxml", event);
+        realizarAtaque(1, event);
     }
     
     @FXML
     void usarAtaque2(ActionEvent event) {
-    	loadStage("../view/COMBATE-SCENE.fxml", event);
+        realizarAtaque(2, event);
     }
     
     @FXML
     void usarAtaque3(ActionEvent event) {
-    	loadStage("../view/COMBATE-SCENE.fxml", event);
+        realizarAtaque(3, event);
     }
     
     @FXML
     void usarAtaque4(ActionEvent event) {
-    	loadStage("../view/COMBATE-SCENE.fxml", event);
+        realizarAtaque(4, event);
     }
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-    	
-    	String nom_usuario = SessionManager.getEntrenador().getNom_entrenador();
-    	int id_usuario = SessionManager.getEntrenador().getId_entrenador();
-    	List<String> pokemon = obtenerEquipoPokemon(id_usuario);
-    	
-    	nombreUsuario.setText(nom_usuario);
+        String nom_usuario = SessionManager.getEntrenador().getNom_entrenador();
+        int id_usuario = SessionManager.getEntrenador().getId_entrenador();
+        List<String> pokemon = obtenerEquipoPokemon(id_usuario);
+
+        nombreUsuario.setText(nom_usuario);
         if (pokemon.get(0) != null) {
             cambiarImagen(imgPokemon, pokemon.get(0));
             nombrePokemon.setText(pokemon.get(0));
-        } else {
-        
         }
 
         if (CombateSessionManager.getIdRival() == 0) {
             try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
                 int idRival = seleccionarEntrenadorRival(conn);
                 CombateSessionManager.setIdRival(idRival);
-                
+
                 String entrenadorRival = obtenerNombreEntrenador(conn, idRival);
                 CombateSessionManager.setNombreEntrenadorRival(entrenadorRival);
-                
-                String pokemonRival = seleccionarPokemonRivalAleatorio(conn, idRival);
-                CombateSessionManager.setNombrePokemonRival(pokemonRival);
-                
+
+                seleccionarPokemonRivalAleatorio(conn, idRival); // Modificado para obtener y almacenar el idPokemonRival
+
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+        } else {
+            idRival = CombateSessionManager.getIdRival();
         }
 
         nombreRival.setText(CombateSessionManager.getNombreEntrenadorRival());
         nombrePokemonRival.setText(CombateSessionManager.getNombrePokemonRival());
         cambiarImagen(imgPokemonRival, CombateSessionManager.getNombrePokemonRival());
-        
-        
+
+        idPokemonRival = CombateSessionManager.getIdPokemonRival(); // Obtener el id del Pokémon rival desde CombateSessionManager
+
         List<PokemonVitalidad> listaVitalidad = obtenerVitalidadPokemon(id_usuario);
         if (!listaVitalidad.isEmpty()) {
-            PokemonVitalidad pokemonVitalidad = listaVitalidad.get(0); // Obtener el primer Pokémon del equipo
+            PokemonVitalidad pokemonVitalidad = listaVitalidad.get(0);
             vitalidadPokemon.setText(pokemonVitalidad.vitalidad + "/" + pokemonVitalidad.vitalidadMax);
         }
 
-        // Obtener y mostrar la vitalidad del Pokémon rival
-        // Suponiendo que CombateSessionManager tiene un método para obtener el ID del Pokémon rival
-        List<PokemonVitalidad> listaVitalidadRival = obtenerVitalidadPokemon(CombateSessionManager.getIdRival());
+        List<PokemonVitalidad> listaVitalidadRival = obtenerVitalidadPokemon(idPokemonRival);
         if (!listaVitalidadRival.isEmpty()) {
-            PokemonVitalidad pokemonVitalidadRival = listaVitalidadRival.get(0); // Obtener el primer Pokémon del rival
+            PokemonVitalidad pokemonVitalidadRival = listaVitalidadRival.get(0);
             vitalidadPokemonRival.setText(pokemonVitalidadRival.vitalidad + "/" + pokemonVitalidadRival.vitalidadMax);
         }
-        
-        // Obtener los movimientos del primer Pokémon del usuario
-        List<String> movimientosPokemonUsuario = obtenerMovimientosPokemon(obtenerPrimerPokemonUsuario(id_usuario));
 
-        // Asignar los movimientos a los botones correspondientes
+        List<String> movimientosPokemonUsuario = obtenerMovimientosPokemon(obtenerPrimerPokemonUsuario(id_usuario));
         asignarMovimientosABotones(movimientosPokemonUsuario);
-    	
+    }
+
+    
+    private void realizarAtaque(int idMovimiento, Event event) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/getbacktowork", "root", "")) {
+            conn.setAutoCommit(false);
+
+            // Registrar acción del usuario
+            registrarAccionUsuario(conn, idMovimiento);
+
+            // Elegir y registrar acción del rival
+            int movimientoRival;
+            try {
+                movimientoRival = elegirMovimientoRival(conn, CombateSessionManager.getIdPokemonRival());
+            } catch (IllegalArgumentException e) {
+                // Manejar el caso donde el Pokémon rival no tiene movimientos disponibles
+                mostrarError("El Pokémon rival no tiene movimientos disponibles.");
+                return;
+            }
+
+            registrarAccionRival(conn, movimientoRival);
+
+            conn.commit();
+
+            // Actualizar la interfaz de usuario después de realizar los ataques
+            loadStage("../view/COMBATE-SCENE.fxml", event);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            mostrarError("Error al realizar el ataque: " + ex.getMessage());
+        }
+    }
+
+    
+    private void registrarAccionUsuario(Connection conn, int idMovimiento) throws SQLException {
+        // Obtener el máximo id_turno
+        int maxIdTurno = 0;
+        String getMaxIdTurnoSql = "SELECT COALESCE(MAX(id_turno), 0) + 1 AS max_id_turno FROM turno";
+        try (PreparedStatement stmt = conn.prepareStatement(getMaxIdTurnoSql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                maxIdTurno = rs.getInt("max_id_turno");
+            }
+        }
+
+        // Insertar la acción del usuario
+        String insertTurnoSql = "INSERT INTO turno (id_turno, id_pokemon_usuario, id_movimiento_usuario) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(insertTurnoSql)) {
+            stmt.setInt(1, maxIdTurno);
+            stmt.setInt(2, idPokemonUsuario);
+            stmt.setInt(3, idMovimiento);
+            stmt.executeUpdate();
+        }
+    }
+
+
+    private void registrarAccionRival(Connection conn, int idMovimiento) throws SQLException {
+        String sql = "UPDATE turno SET id_pokemon_rival = ?, id_movimiento_rival = ? WHERE id_turno = (SELECT MAX(id_turno) FROM turno)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idPokemonRival);
+            stmt.setInt(2, idMovimiento);
+            stmt.executeUpdate();
+        }
+    }
+
+    private int elegirMovimientoRival(Connection conn, int idPokemon) throws SQLException {
+        List<Integer> movimientos = new ArrayList<>();
+        String sql = "SELECT id_movimiento FROM movimientos_pokemon WHERE id_pokemon = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idPokemon);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    movimientos.add(rs.getInt("id_movimiento"));
+                }
+            }
+        }
+
+        if (movimientos.isEmpty()) {
+            throw new IllegalArgumentException("El Pokémon rival no tiene movimientos disponibles.");
+        }
+
+        Random random = new Random();
+        return movimientos.get(random.nextInt(movimientos.size()));
+    }
+
+
+    private void actualizarVitalidad(Connection conn, int idPokemonUsuario, int idMovimientoUsuario, int idPokemonRival, int idMovimientoRival) throws SQLException {
+        int damageUsuario = calcularDamage(conn, idMovimientoUsuario);
+        int damageRival = calcularDamage(conn, idMovimientoRival);
+
+        // Actualizar vitalidad del Pokémon rival
+        String sql = "UPDATE pokemon SET vitalidad = GREATEST(0, vitalidad - ?) WHERE id_pokemon = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, damageUsuario);
+            stmt.setInt(2, idPokemonRival);
+            stmt.executeUpdate();
+        }
+
+        // Actualizar vitalidad del Pokémon del usuario
+        sql = "UPDATE pokemon SET vitalidad = GREATEST(0, vitalidad - ?) WHERE id_pokemon = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, damageRival);
+            stmt.setInt(2, idPokemonUsuario);
+            stmt.executeUpdate();
+        }
+    }
+
+    private int calcularDamage(Connection conn, int idMovimiento) throws SQLException {
+        String sql = "SELECT poder FROM movimientos WHERE id_movimiento = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idMovimiento);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("poder");
+                }
+            }
+        }
+        return 0;
     }
     
     private void loadStage(String url, Event event) {
@@ -244,28 +360,49 @@ public class CombateMovimientosController implements Initializable {
     }
 
     // Método para seleccionar un Pokémon al azar del rival por ID de entrenador
-    private String seleccionarPokemonRivalAleatorio(Connection conn, int idRival) throws SQLException {
-        List<String> pokemonesRival = new ArrayList<>();
-        String sql = "SELECT mote FROM pokemon WHERE id_entrenador = ?";
+    private int seleccionarPokemonRivalAleatorio(Connection conn, int idRival) throws SQLException {
+        List<Integer> pokemonesRivalIds = new ArrayList<>();
+        List<String> pokemonesRivalNombres = new ArrayList<>();
+        String sql = "SELECT id_pokemon, mote FROM pokemon WHERE id_entrenador = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idRival);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    pokemonesRival.add(rs.getString("mote"));
+                    pokemonesRivalIds.add(rs.getInt("id_pokemon"));
+                    pokemonesRivalNombres.add(rs.getString("mote"));
                 }
             }
         }
 
-        // Si no hay Pokémon para el rival en la base de datos, retornar null
-        if (pokemonesRival.isEmpty()) {
-            return null;
+        if (pokemonesRivalIds.isEmpty() || pokemonesRivalNombres.isEmpty()) {
+            return 0;
         }
 
-        // Seleccionar aleatoriamente un Pokémon del rival
         Random random = new Random();
-        int indice = random.nextInt(pokemonesRival.size()); // Genera un número entre 0 y el tamaño de la lista - 1
-        return pokemonesRival.get(indice);
+        int indice = random.nextInt(pokemonesRivalIds.size());
+        int idPokemonRival = pokemonesRivalIds.get(indice);
+        String nombrePokemonRival = pokemonesRivalNombres.get(indice);
+
+        CombateSessionManager.setIdPokemonRival(idPokemonRival);
+        CombateSessionManager.setNombrePokemonRival(nombrePokemonRival);
+
+        // Obtener movimientos del Pokémon rival
+        List<Integer> movimientosPokemonRival = new ArrayList<>();
+        String movimientosSql = "SELECT id_movimiento FROM movimientos_pokemon WHERE id_pokemon = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(movimientosSql)) {
+            stmt.setInt(1, idPokemonRival);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    movimientosPokemonRival.add(rs.getInt("id_movimiento"));
+                }
+            }
+        }
+        CombateSessionManager.setMovimientosPokemonRival(movimientosPokemonRival);
+
+        return idPokemonRival;
     }
+
+
     
     private List<String> obtenerEquipoPokemon(int idUsuario) {
         List<String> pokemon = new ArrayList<>();
@@ -384,5 +521,11 @@ public class CombateMovimientosController implements Initializable {
             ataque4.setText(movimientos.get(3));
         }
     }
+    
+    private void mostrarError(String mensaje) {
+        // Implementar una manera de mostrar errores en la interfaz de usuario
+        System.err.println(mensaje);
+    }
+
     
 }
