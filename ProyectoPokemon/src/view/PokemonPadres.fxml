@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="863.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PokemonPadresController">
+   <children>
+      <ImageView fitHeight="539.0" fitWidth="863.0">
+         <image>
+            <Image url="@../recursos/EquipoImagen.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="96.0" layoutY="51.0" prefHeight="342.0" prefWidth="672.0">
+         <children>
+            <AnchorPane layoutX="25.0" layoutY="20.0" prefHeight="90.0" prefWidth="250.0">
+               <children>
+                  <ImageView fx:id="imgPadre1" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="labelPadre1" layoutX="112.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerPadre1" layoutX="-2.0" layoutY="2.0" mnemonicParsing="false" onAction="#escogerPadre1" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="25.0" layoutY="138.0" prefHeight="90.0" prefWidth="250.0">
+               <children>
+                  <ImageView fx:id="imgPadre2" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="labelPadre2" layoutX="112.0" layoutY="28.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerPadre2" mnemonicParsing="false" onAction="#escogerPadre2" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="397.0" layoutY="131.0" prefHeight="90.0" prefWidth="250.0">
+               <children>
+                  <ImageView fx:id="imgMadre2" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="labelMadre2" layoutX="111.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerMadre2" layoutY="9.0" mnemonicParsing="false" onAction="#escogerMadre2" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="397.0" layoutY="20.0" prefHeight="90.0" prefWidth="250.0">
+               <children>
+                  <ImageView fx:id="imgMadre1" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="labelMadre1" layoutX="112.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerMadre1" mnemonicParsing="false" onAction="#escogerMadre1" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="25.0" layoutY="252.0" prefHeight="90.0" prefWidth="250.0">
+               <children>
+                  <ImageView fx:id="imgPadre3" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="labelPadre3" layoutX="116.0" layoutY="28.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerPadre3" layoutY="1.0" mnemonicParsing="false" onAction="#escogerPadre3" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="397.0" layoutY="240.0" prefHeight="90.0" prefWidth="250.0">
+               <children>
+                  <ImageView fx:id="imgMadre3" fitHeight="90.0" fitWidth="90.0" layoutX="-7.0" layoutY="-35.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="labelMadre3" layoutX="112.0" layoutY="37.0" text="Nombre Pokemon" />
+                  <Button fx:id="escogerMadre3" layoutY="9.0" mnemonicParsing="false" onAction="#escogerMadre3" opacity="0.0" prefHeight="90.0" prefWidth="250.0" text="Button" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="692.0" layoutY="406.0" prefHeight="118.0" prefWidth="139.0">
+         <children>
+            <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#salir" opacity="0.0" prefHeight="118.0" prefWidth="139.0" text="SALIR">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children>
+      </AnchorPane>
+      <Button fx:id="irACriar" layoutX="371.0" layoutY="444.0" mnemonicParsing="false" onAction="#irACriar" prefHeight="57.0" prefWidth="122.0" text="Ir a criar" />
+   </children>
+</AnchorPane>

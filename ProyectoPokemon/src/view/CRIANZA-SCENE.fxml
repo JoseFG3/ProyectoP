@@ -12,8 +12,7 @@
             <Image url="@../recursos/CrianzaImagen.png" />
          </image>
       </ImageView>
-      <Button fx:id="irMacho" layoutX="203.0" layoutY="369.0" mnemonicParsing="false" onAction="#irEscogerMacho" text="MACHO" />
-      <Button fx:id="irHembra" layoutX="530.0" layoutY="369.0" mnemonicParsing="false" onAction="#irEscogerHembra" text="HEMBRA" />
+      <Button fx:id="irPadres" layoutX="370.0" layoutY="405.0" mnemonicParsing="false" onAction="#irEscogerPadres" text="PADRES" />
       <Button fx:id="finCriarza" layoutX="333.0" layoutY="144.0" mnemonicParsing="false" onAction="#finCrianza" prefHeight="26.0" prefWidth="133.0" text="FINALIZAR CRIANZA" />
       <Button fx:id="huevo" layoutX="355.0" layoutY="471.0" mnemonicParsing="false" onAction="#abrirHuevo" text="ABRIR HUEVO" />
       <AnchorPane layoutX="672.0" layoutY="430.0" prefHeight="106.0" prefWidth="113.0">
