@@ -34,7 +34,7 @@
             <Label fx:id="nombrePokemon" layoutX="14.0" layoutY="6.0" text="(Nombre Pokemon)" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
             <Label layoutX="152.0" layoutY="10.0" text="LV XX" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0" />
             <Label fx:id="vitalidadPokemon" layoutX="140.0" layoutY="59.0" text="HP/HP" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="15.0" />
-            <ProgressBar layoutX="16.0" layoutY="36.0" prefHeight="15.0" prefWidth="150.0" progress="1.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="15.0" />
+            <ProgressBar fx:id="progressBarPokemon" layoutX="16.0" layoutY="36.0" prefHeight="15.0" prefWidth="150.0" progress="1.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="15.0" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="77.0" layoutY="81.0" prefHeight="90.0" prefWidth="200.0">
@@ -43,7 +43,7 @@
             <Label fx:id="nombrePokemonRival" layoutX="14.0" layoutY="6.0" text="(Nombre Pokemon)" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
             <Label layoutX="152.0" layoutY="10.0" text="LV XX" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="10.0" />
             <Label fx:id="vitalidadPokemonRival" layoutX="140.0" layoutY="59.0" text="HP/HP" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="15.0" />
-            <ProgressBar layoutX="-7.0" layoutY="36.0" prefHeight="15.0" prefWidth="150.0" progress="1.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="15.0" />
+            <ProgressBar fx:id="progressBarPokemonRival" layoutX="-7.0" layoutY="36.0" prefHeight="15.0" prefWidth="150.0" progress="1.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="15.0" />
          </children>
       </AnchorPane>
       <Label fx:id="nombreUsuario" layoutX="494.0" layoutY="370.0" text="Nombre Entrenador">

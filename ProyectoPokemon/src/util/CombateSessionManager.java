@@ -61,8 +61,6 @@ public class CombateSessionManager {
         nombrePokemonRival = null;
         movimientosPokemonRival = null;
         idPokemonRival = 0;
-		
-        curarPokemon();
 	}
 	
     public static void curarPokemon() {

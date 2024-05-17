@@ -155,7 +155,6 @@ public class CombateController implements Initializable {
         List<PokemonVitalidad> listaVitalidadRival = obtenerVitalidadPokemon(CombateSessionManager.getIdRival());
         if (!listaVitalidadRival.isEmpty()) {
             PokemonVitalidad pokemonVitalidadRival = listaVitalidadRival.get(0); // Obtener el primer Pokémon del rival
-            System.out.println(pokemonVitalidadRival.vitalidad);
             vitalidadPokemonRival.setText(pokemonVitalidadRival.vitalidad + "/" + pokemonVitalidadRival.vitalidadMax);
             progressBarPokemonRival.setProgress((double) pokemonVitalidadRival.vitalidad / pokemonVitalidadRival.vitalidadMax);
         }
@@ -221,7 +220,7 @@ public class CombateController implements Initializable {
 
     private int seleccionarEntrenadorRival(Connection conn) throws SQLException {
         List<Integer> entrenadoresRivales = new ArrayList<>();
-        String sql = "SELECT id_entrenador FROM entrenador ORDER BY id_entrenador";
+        String sql = "SELECT id_entrenador FROM entrenador WHERE id_entrenador BETWEEN 1 AND 10 ORDER BY id_entrenador";
         try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
