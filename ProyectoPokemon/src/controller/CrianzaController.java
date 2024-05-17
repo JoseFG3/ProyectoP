@@ -124,7 +124,7 @@ public class CrianzaController implements Initializable{
             int experiencia = 0;
             int vitalidadMax = (int) (Math.random() * 51) + 50;
             int idObjeto = 0;
-            int vitalidad = vitalidadMax / 2;
+            int vitalidad = vitalidadMax;
  
             String insertQuery = "INSERT INTO pokemon (ID_POKEMON, MOTE, CAJA, ATAQUE, AT_ESPECIAL, DEFENSA, DEF_ESPECIAL, VELOCIDAD, NIVEL, FERTILIDAD, SEXO, ESTADO, EXPERIENCIA, VITALIDAD_MAX, NUM_POKEDEX, ID_ENTRENADOR, ID_OBJETO, VITALIDAD) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement insertStatement = conn.prepareStatement(insertQuery);
@@ -150,7 +150,7 @@ public class CrianzaController implements Initializable{
             int filasInsertadas = insertStatement.executeUpdate();
             if (filasInsertadas > 0) {
                 String tipoPokemon = pokemon.getTipo1();
-                List<Movimientos> movimientos = obtenerMovimientosAlAzar(conn, tipoPokemon);
+                List<Movimientos> movimientos = obtenerMovimientoPlacaje(conn);
                 asignarMovimientosAPokemon(nuevoID, movimientos, conn);
  
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -170,13 +170,12 @@ public class CrianzaController implements Initializable{
         }
     }
  
-    private List<Movimientos> obtenerMovimientosAlAzar(Connection conn, String tipoPokemon) {
+    private List<Movimientos> obtenerMovimientoPlacaje(Connection conn) {
         List<Movimientos> movimientos = new ArrayList<>();
  
-        String sql = "SELECT id_movimiento, nom_movimiento, potencia, tipo FROM movimientos WHERE tipo = ? ORDER BY RAND() LIMIT 4";
+        String sql = "SELECT id_movimiento, nom_movimiento, potencia, tipo FROM movimientos WHERE nom_movimiento = 'Placaje'";
  
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, tipoPokemon);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int idMovimiento = rs.getInt("id_movimiento");
