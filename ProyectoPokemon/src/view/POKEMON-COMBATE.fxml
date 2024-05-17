@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -37,7 +38,74 @@
             </Label>
             <AnchorPane layoutX="519.0" layoutY="470.0" prefHeight="124.0" prefWidth="117.0">
                <children>
-                  <Button fx:id="btnReturn" layoutX="33.0" layoutY="50.0" mnemonicParsing="false" onAction="#volverCombate" opacity="0.0" text="Button" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="btnReturn" layoutX="33.0" layoutY="50.0" mnemonicParsing="false" onAction="#volverCombate" opacity="0.0" text="Button" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="55.0" prefHeight="420.0" prefWidth="647.0">
+               <children>
+                  <AnchorPane layoutX="88.0" layoutY="48.0" prefHeight="90.0" prefWidth="192.0">
+                     <children>
+                        <ImageView fx:id="imgPokemon1" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="labelPokemon1" layoutX="90.0" layoutY="37.0" text="Nombre Pokemon" />
+                        <Button fx:id="btnPokemon1" layoutX="5.0" layoutY="5.0" mnemonicParsing="false" onAction="#btnpkm1" opacity="0.0" prefHeight="80.0" prefWidth="80.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="90.0" layoutY="175.0" prefHeight="90.0" prefWidth="183.0">
+                     <children>
+                        <ImageView fx:id="imgPokemon3" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="labelPokemon3" layoutX="90.0" layoutY="37.0" text="Nombre Pokemon" />
+                        <Button fx:id="btnPokemon3" layoutY="5.0" mnemonicParsing="false" onAction="#btnpkm3" opacity="0.0" prefHeight="80.0" prefWidth="80.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="366.0" layoutY="165.0" prefHeight="90.0" prefWidth="188.0">
+                     <children>
+                        <ImageView fx:id="imgPokemon4" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="labelPokemon4" layoutX="90.0" layoutY="37.0" text="Nombre Pokemon" />
+                        <Button fx:id="btnPokemon4" layoutX="5.0" layoutY="-3.0" mnemonicParsing="false" onAction="#btnpkm4" opacity="0.0" prefHeight="80.0" prefWidth="80.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="362.0" layoutY="37.0" prefHeight="90.0" prefWidth="196.0">
+                     <children>
+                        <ImageView fx:id="imgPokemon2" fitHeight="90.0" fitWidth="90.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0" />
+                        <Label fx:id="labelPokemon2" layoutX="90.0" layoutY="39.0" text="Nombre Pokemon" />
+                        <Button fx:id="btnPokemon2" layoutX="10.0" layoutY="6.0" mnemonicParsing="false" onAction="#btnpkm2" opacity="0.0" prefHeight="80.0" prefWidth="80.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="88.0" layoutY="295.0" prefHeight="90.0" prefWidth="188.0">
+                     <children>
+                        <ImageView fx:id="imgPokemon5" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="labelPokemon5" layoutX="90.0" layoutY="37.0" text="Nombre Pokemon" />
+                        <Button fx:id="btnPokemon5" layoutX="11.0" layoutY="4.0" mnemonicParsing="false" onAction="#btnpkm5" opacity="0.0" prefHeight="80.0" prefWidth="80.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="362.0" layoutY="289.0" prefHeight="90.0" prefWidth="196.0">
+                     <children>
+                        <ImageView fx:id="imgPokemon6" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="labelPokemon6" layoutX="90.0" layoutY="37.0" text="Nombre Pokemon" />
+                        <Button fx:id="btnPokemon6" layoutX="7.0" layoutY="1.0" mnemonicParsing="false" onAction="#btnpkm6" opacity="0.0" prefHeight="80.0" prefWidth="80.0" text="Button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>

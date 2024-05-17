@@ -96,7 +96,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnPokemon" layoutX="97.0" layoutY="153.0" mnemonicParsing="false" opacity="0.0" prefHeight="95.0" prefWidth="212.0" text="POKEMON">
+            <Button fx:id="btnPokemon" layoutX="97.0" layoutY="153.0" mnemonicParsing="false" onAction="#irPokemon" opacity="0.0" prefHeight="95.0" prefWidth="212.0" text="POKEMON">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

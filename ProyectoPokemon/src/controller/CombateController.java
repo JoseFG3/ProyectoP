@@ -91,6 +91,11 @@ public class CombateController implements Initializable {
     	loadStage("../view/MOCHILA-SCENE.fxml", event);
     }
     
+    @FXML
+    void irPokemon(ActionEvent event) {
+    	loadStage("../view/POKEMON-COMBATE.fxml", event);
+    }
+    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     	

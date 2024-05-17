@@ -90,7 +90,53 @@ public class PokemonCombateController implements Initializable {
     
     @FXML
     private Label labelPokemon6;
-
+    
+    @FXML
+    private Button btnPokemon1;
+    
+    @FXML
+    private Button btnPokemon2;
+    
+    @FXML
+    private Button btnPokemon3;
+    
+    @FXML
+    private Button btnPokemon4;
+    
+    @FXML
+    private Button btnPokemon5;
+    
+    @FXML
+    private Button btnPokemon6;
+    
+    @FXML
+    void btnpkm1 (ActionEvent event) {
+    	
+    }
+    @FXML
+    void btnpkm2 (ActionEvent event) {
+    	
+    }
+    
+    @FXML
+    void btnpkm3 (ActionEvent event) {
+    	
+    }
+    
+    @FXML
+    void btnpkm4 (ActionEvent event) {
+    	
+    }
+    
+    @FXML
+    void btnpkm5 (ActionEvent event) {
+    	
+    }
+    
+    @FXML
+    void btnpkm6 (ActionEvent event) {
+    	
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     	
